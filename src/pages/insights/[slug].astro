@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CTA from '../../components/CTA.astro';
+import { getCollection, render } from 'astro:content';
+export async function getStaticPaths() {
+  const posts = await getCollection('insights');
+  return posts.map((p) => ({ params: { slug: p.id }, props: { post: p } }));
+}
+const { post } = Astro.props;
+const { Content } = await render(post);
+const caps = await getCollection('capabilities');
+const cap = caps.find((c) => c.id === post.data.capability);
+const date = post.data.date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+---
+<Base title={post.data.title} description={post.data.summary}>
+  <PageHero eyebrow={cap?.data.title} title={post.data.title} lead={post.data.summary} crumbs={[{ label: 'Insights', href: '/insights/' }]}>
+    <p class="by">{post.data.author} · {date} · {post.data.readTime}</p>
+  </PageHero>
+  <section class="section white">
+    <div class="wrap">
+      <article class="prose"><Content /></article>
+      {cap && <p class="more">More on this topic: <a class="link-arrow" href={`/capabilities/${cap.id}/`}>{cap.data.title} →</a></p>}
+    </div>
+  </section>
+  <CTA />
+</Base>
+<style>
+  .by { color: #8590a8; margin-top: 24px; }
+  .more { max-width: 70ch; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); }
+</style>

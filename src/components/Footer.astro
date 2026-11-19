@@ -1,0 +1,46 @@
+---
+import Logo from './Logo.astro';
+import { site } from '../site';
+import { getCollection } from 'astro:content';
+const caps = (await getCollection('capabilities')).sort((a, b) => a.data.order - b.data.order);
+const inds = (await getCollection('industries')).sort((a, b) => a.data.order - b.data.order);
+const year = new Date().getFullYear();
+---
+<footer class="dark ftr">
+  <div class="wrap">
+    <div class="top">
+      <div class="brand">
+        <a href="/" style="text-decoration:none"><Logo /></a>
+        <p class="muted">Helping enterprises plan, build and run the technology behind modern business.</p>
+        <p><a class="mail" href={`mailto:${site.email}`}>{site.email}</a>{site.phone && <><br /><a href={`tel:${site.phone}`}>{site.phone}</a></>}</p>
+      </div>
+      <div><h4>Capabilities</h4><ul>{caps.map((c) => <li><a href={`/capabilities/${c.id}/`}>{c.data.title}</a></li>)}</ul></div>
+      <div><h4>Industries</h4><ul>{inds.map((i) => <li><a href={`/industries/${i.id}/`}>{i.data.title}</a></li>)}</ul></div>
+      <div><h4>Company</h4><ul>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/partners/">Partners</a></li>
+        <li><a href="/insights/">Insights</a></li>
+        <li><a href="/careers/">Careers</a></li>
+        <li><a href="/contact/">Contact</a></li>
+      </ul></div>
+      <div><h4>Office</h4><p class="muted">{site.address.map((l) => <>{l}<br /></>)}</p><a href={site.linkedin} rel="noopener">LinkedIn</a></div>
+    </div>
+    <div class="base">
+      <span>© {year} {site.name}. All rights reserved.</span>
+      <span><a href="/privacy/">Privacy policy</a></span>
+    </div>
+  </div>
+</footer>
+<style>
+  .ftr { padding: 80px 0 32px; }
+  .top { display: grid; grid-template-columns: 1.6fr repeat(4, 1fr); gap: 32px; }
+  .brand p { max-width: 32ch; margin-top: 20px; }
+  h4 { font-size: .8rem; letter-spacing: .14em; text-transform: uppercase; color: #8590a8; margin-bottom: 16px; font-weight: 600; }
+  ul { list-style: none; margin: 0; padding: 0; }
+  li { margin-bottom: 10px; }
+  .ftr a { text-decoration: none; color: #dfe3ec; }
+  .ftr a:hover { color: #fff; text-decoration: underline; text-underline-offset: 4px; }
+  .mail { font-weight: 600; }
+  .base { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--line-dark); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: .9rem; color: #8590a8; }
+  @media (max-width: 960px) { .top { grid-template-columns: 1fr 1fr; } .brand { grid-column: 1 / -1; } }
+</style>

@@ -1,0 +1,45 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CTA from '../../components/CTA.astro';
+import InsightCard from '../../components/InsightCard.astro';
+import { getCollection } from 'astro:content';
+export async function getStaticPaths() {
+  const inds = await getCollection('industries');
+  return inds.map((i) => ({ params: { slug: i.id }, props: { ind: i } }));
+}
+const { ind } = Astro.props;
+const d = ind.data;
+const allCaps = await getCollection('capabilities');
+const caps = d.capabilities.map((id) => allCaps.find((c) => c.id === id)).filter(Boolean);
+const capTitle = Object.fromEntries(allCaps.map((c) => [c.id, c.data.title]));
+const posts = (await getCollection('insights')).filter((p) => p.data.industry === ind.id);
+---
+<Base title={d.title} description={d.summary}>
+  <PageHero eyebrow={d.title} title={d.headline} lead={d.summary} crumbs={[{ label: 'Industries', href: '/industries/' }]} />
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head"><div><span class="eyebrow">Industry challenges</span><h2>What’s holding teams back.</h2></div></div>
+      <div class="grid g2">
+        {d.challenges.map((c, i) => <div class="card"><span class="num">{String(i + 1).padStart(2, '0')}</span><h3>{c.title}</h3><p>{c.text}</p></div>)}
+      </div>
+    </div>
+  </section>
+  <section class="section dark">
+    <div class="wrap">
+      <div class="section-head"><div><span class="eyebrow">How we help</span><h2>The capabilities we bring.</h2></div></div>
+      <div class="grid g3">
+        {caps.map((c) => <a class="card" href={`/capabilities/${c.id}/`}><h3>{c.data.title}</h3><p>{c.data.summary}</p><span class="link-arrow">Explore <span>→</span></span></a>)}
+      </div>
+    </div>
+  </section>
+  {posts.length > 0 && (
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head"><div><span class="eyebrow">Insights</span><h2>Related thinking.</h2></div></div>
+        <div class="grid g3">{posts.map((p) => <InsightCard post={p} capTitle={capTitle[p.data.capability]} />)}</div>
+      </div>
+    </section>
+  )}
+  <CTA />
+</Base>

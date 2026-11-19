@@ -1,0 +1,30 @@
+---
+const steps = [
+  ['Assess', 'Understand goals, constraints and the current estate.'],
+  ['Design', 'Architecture and roadmap tied to business outcomes.'],
+  ['Build', 'Procure, configure and engineer the solution.'],
+  ['Migrate', 'Move data, workloads and users with minimal disruption.'],
+  ['Optimise', 'Tune performance, security and cost after launch.'],
+  ['Support', 'Run and improve the platform for the long term.'],
+];
+---
+<ol class="process">
+  {steps.map(([t, d], i) => (
+    <li>
+      <span class="dot">{String(i + 1).padStart(2, '0')}</span>
+      <h3>{t}</h3>
+      <p>{d}</p>
+    </li>
+  ))}
+</ol>
+<style>
+  .process { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, 1fr); gap: 20px; position: relative; }
+  .process::before { content: ''; position: absolute; top: 22px; left: 0; right: 0; height: 1px; background: var(--line-dark); }
+  li { position: relative; }
+  .dot { display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--ink); border: 1px solid #3a4560; font-size: .85rem; font-weight: 600; margin-bottom: 20px; position: relative; }
+  li:first-child .dot { background: var(--accent); border-color: var(--accent); }
+  h3 { font-size: 1.15rem; margin-bottom: 6px; }
+  p { font-size: .95rem; color: #9aa3b8; margin: 0; }
+  @media (max-width: 960px) { .process { grid-template-columns: repeat(3, 1fr); row-gap: 40px; } .process::before { display: none; } }
+  @media (max-width: 640px) { .process { grid-template-columns: 1fr 1fr; } }
+</style>

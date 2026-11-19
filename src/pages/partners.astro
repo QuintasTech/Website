@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Partners from '../components/Partners.astro';
+import CTA from '../components/CTA.astro';
+const groups = [
+  ['Cloud and workplace', 'Microsoft Azure, Microsoft 365, AWS'],
+  ['Infrastructure', 'Dell Technologies, HPE, Cisco, Nutanix, VMware'],
+  ['Commerce', 'Shopify Plus, Salesforce Commerce Cloud, Adobe Commerce, commercetools, SAP Commerce'],
+  ['Data and AI', 'Microsoft Fabric, Azure AI, AWS data services'],
+];
+---
+<Base title="Partners" description="Quintas works across leading cloud, infrastructure and commerce platforms as a vendor-neutral partner.">
+  <PageHero eyebrow="Partners" title="A vendor-neutral technology ecosystem." lead="We work across the leading cloud, infrastructure and commerce platforms, so we can recommend what fits rather than what we happen to sell." />
+  <section class="section white">
+    <div class="wrap">
+      <Partners />
+      <div class="list-rows" style="margin-top:64px">
+        {groups.map(([t, d]) => <div><h3>{t}</h3><p>{d}</p></div>)}
+      </div>
+    </div>
+  </section>
+  <CTA />
+</Base>

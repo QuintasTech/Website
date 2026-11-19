@@ -1,0 +1,22 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CTA from '../../components/CTA.astro';
+import { getCollection } from 'astro:content';
+const inds = (await getCollection('industries')).sort((a, b) => a.data.order - b.data.order);
+---
+<Base title="Industries" description="Quintas brings enterprise technology expertise to retail and consumer goods, manufacturing, and government.">
+  <PageHero eyebrow="Industries" title="Expertise shaped by the industries we serve." lead="Every sector has its own pressures. We pair our capabilities with an understanding of how your industry works." />
+  <section class="section">
+    <div class="wrap grid g3">
+      {inds.map((i) => (
+        <a class="card" href={`/industries/${i.id}/`} style="min-height:300px">
+          <h2 style="font-size:1.8rem">{i.data.title}</h2>
+          <p>{i.data.summary}</p>
+          <span class="link-arrow">Learn more <span>→</span></span>
+        </a>
+      ))}
+    </div>
+  </section>
+  <CTA />
+</Base>

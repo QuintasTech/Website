@@ -1,0 +1,42 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import InsightCard from '../../components/InsightCard.astro';
+import CTA from '../../components/CTA.astro';
+import { getCollection } from 'astro:content';
+const caps = (await getCollection('capabilities')).sort((a, b) => a.data.order - b.data.order);
+const capTitle = Object.fromEntries(caps.map((c) => [c.id, c.data.title]));
+const posts = (await getCollection('insights')).sort((a, b) => +b.data.date - +a.data.date);
+const used = caps.filter((c) => posts.some((p) => p.data.capability === c.id));
+---
+<Base title="Insights" description="Practical guidance on enterprise commerce, cloud, infrastructure and AI from the Quintas team.">
+  <PageHero eyebrow="Insights" title="Knowledge from the people who build it." lead="Practical guidance on enterprise commerce, cloud, infrastructure and AI, written by our practice leads." />
+  <section class="section">
+    <div class="wrap">
+      <div class="filters" role="group" aria-label="Filter by capability">
+        <button class="on" data-f="all">All</button>
+        {used.map((c) => <button data-f={c.id}>{c.data.title}</button>)}
+      </div>
+      <div class="grid g3" id="posts">
+        {posts.map((p) => <div data-cap={p.data.capability}><InsightCard post={p} capTitle={capTitle[p.data.capability]} /></div>)}
+      </div>
+    </div>
+  </section>
+  <CTA />
+</Base>
+<script>
+  const btns = document.querySelectorAll<HTMLButtonElement>('.filters button');
+  btns.forEach((b) => b.addEventListener('click', () => {
+    btns.forEach((x) => x.classList.toggle('on', x === b));
+    document.querySelectorAll<HTMLElement>('#posts > div').forEach((el) => {
+      el.hidden = b.dataset.f !== 'all' && el.dataset.cap !== b.dataset.f;
+    });
+  }));
+</script>
+<style>
+  .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 40px; }
+  .filters button { font: inherit; font-size: .95rem; padding: 9px 18px; border-radius: 999px; border: 1px solid var(--line); background: var(--white); cursor: pointer; }
+  .filters button.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+  #posts > div { display: flex; }
+  #posts > div > :global(.card) { flex: 1; }
+</style>

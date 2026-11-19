@@ -1,0 +1,34 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import CTA from '../components/CTA.astro';
+const values = [
+  ['Enterprise first', 'We work with organisations where technology is mission critical, and we plan, govern and document to that standard.'],
+  ['Vendor neutral', 'Our recommendations follow your requirements, not a reseller target. We work across leading platforms and OEMs.'],
+  ['End-to-end delivery', 'Strategy, procurement, engineering, migration and support from one accountable team.'],
+  ['Senior people', 'Experienced architects and engineers lead every engagement from the first workshop.'],
+];
+---
+<Base title="About" description="Quintas Technology Partners builds the technology foundations behind modern business.">
+  <PageHero eyebrow="About Quintas" title="Building the technology foundations behind modern business." lead="Quintas Technology Partners helps enterprises modernise infrastructure, move to the cloud, build commerce platforms and put data and AI to work." />
+  <section class="section">
+    <div class="wrap split">
+      <div><span class="eyebrow">Who we are</span><h2>Experience you can build on.</h2></div>
+      <div class="prose">
+        <p class="lead">Our team brings more than 60 years of combined experience delivering enterprise technology for global consumer brands, manufacturers and public sector organisations.</p>
+        <p class="muted">We exist to close the gap between strategy and execution. Too many technology programmes stall between the consultants who design them and the vendors who supply them. We do both, and we stay to run what we build.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section dark">
+    <div class="wrap">
+      <div class="section-head"><div><span class="eyebrow">Why Quintas</span><h2>How we work.</h2></div></div>
+      <div class="grid g4">{values.map(([t, d], i) => <div class="card"><span class="num">{String(i + 1).padStart(2, '0')}</span><h3>{t}</h3><p>{d}</p></div>)}</div>
+    </div>
+  </section>
+  <CTA />
+</Base>
+<style>
+  .split { display: grid; grid-template-columns: 1fr 1.3fr; gap: clamp(40px, 6vw, 96px); }
+  @media (max-width: 960px) { .split { grid-template-columns: 1fr; } }
+</style>

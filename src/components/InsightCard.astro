@@ -1,0 +1,15 @@
+---
+const { post, capTitle } = Astro.props;
+const date = post.data.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+---
+<a class="card ins" href={`/insights/${post.id}/`}>
+  <span class="meta">{capTitle} · {post.data.readTime}</span>
+  <h3>{post.data.title}</h3>
+  <p>{post.data.summary}</p>
+  <span class="date">{date}</span>
+</a>
+<style>
+  .ins { min-height: 300px; }
+  .meta { font-size: .8rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 28px; }
+  .date { margin-top: auto; font-size: .9rem; color: var(--muted); }
+</style>

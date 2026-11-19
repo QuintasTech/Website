@@ -1,0 +1,149 @@
+---
+import Base from '../layouts/Base.astro';
+import CTA from '../components/CTA.astro';
+import Process from '../components/Process.astro';
+import Partners from '../components/Partners.astro';
+import InsightCard from '../components/InsightCard.astro';
+import { getCollection } from 'astro:content';
+const caps = (await getCollection('capabilities')).sort((a, b) => a.data.order - b.data.order);
+const inds = (await getCollection('industries')).sort((a, b) => a.data.order - b.data.order);
+const posts = (await getCollection('insights')).sort((a, b) => +b.data.date - +a.data.date).slice(0, 3);
+const capTitle = Object.fromEntries(caps.map((c) => [c.id, c.data.title]));
+const commerce = caps.find((c) => c.id === 'commerce');
+---
+<Base>
+  <section class="dark hero">
+    <div class="hero-grid"></div><div class="hero-glow"></div>
+    <div class="wrap relative">
+      <span class="eyebrow">Enterprise technology partner</span>
+      <h1>Engineering enterprise technology for what’s next.</h1>
+      <p class="lead">Quintas plans, builds and runs the commerce platforms, cloud and infrastructure that global brands depend on.</p>
+      <div class="actions">
+        <a href="/contact/" class="btn btn-primary">Start a project <span class="arrow">→</span></a>
+        <a href="/capabilities/" class="btn btn-ghost">Explore capabilities</a>
+      </div>
+      <ul class="facts">
+        <li><strong>60+</strong><span>years of combined industry experience</span></li>
+        <li><strong>End to end</strong><span>from strategy and procurement to support</span></li>
+        <li><strong>Vendor neutral</strong><span>the right platform, not the one we resell</span></li>
+        <li><strong>Global brands</strong><span>trusted by enterprise consumer businesses</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div><span class="eyebrow">What we do</span><h2>Capabilities built for enterprise scale.</h2></div>
+        <p class="muted">Five practices, one accountable partner. Each one connects to the others, so strategy, build and operations never fall between vendors.</p>
+      </div>
+      <div class="grid caps">
+        {caps.map((c, i) => (
+          <a class:list={['card', { feature: i === 0 }]} href={`/capabilities/${c.id}/`}>
+            <span class="num">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{c.data.title}</h3>
+            <p>{c.data.summary}</p>
+            <span class="link-arrow">Explore <span>→</span></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  {commerce && (
+  <section class="section white">
+    <div class="wrap split">
+      <div>
+        <span class="eyebrow">Featured capability</span>
+        <h2>Enterprise commerce, from storefront to supply chain.</h2>
+        <p class="lead muted">{commerce.data.summary}</p>
+        <a class="btn btn-primary" href="/capabilities/commerce/">See our commerce practice <span class="arrow">→</span></a>
+      </div>
+      <ol class="stack">
+        {commerce.data.deliver.map((d, i) => (
+          <li><span>{String(i + 1).padStart(2, '0')}</span><div><h3>{d.title}</h3><p>{d.text}</p></div></li>
+        ))}
+      </ol>
+    </div>
+  </section>
+  )}
+
+  <section class="section dark">
+    <div class="wrap">
+      <div class="section-head">
+        <div><span class="eyebrow">How we deliver</span><h2>One partner across the whole lifecycle.</h2></div>
+        <p class="muted">A proven six-step model keeps large programmes predictable, from the first workshop to long-term support.</p>
+      </div>
+      <Process />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div><span class="eyebrow">Industries</span><h2>Deep expertise where it matters.</h2></div>
+        <a class="link-arrow" href="/industries/">All industries →</a>
+      </div>
+      <div class="grid g3">
+        {inds.map((i) => (
+          <a class="card ind" href={`/industries/${i.id}/`}>
+            <h3>{i.data.title}</h3>
+            <p>{i.data.summary}</p>
+            <span class="link-arrow">Learn more <span>→</span></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section white">
+    <div class="wrap">
+      <div class="section-head">
+        <div><span class="eyebrow">Technology ecosystem</span><h2>Vendor neutral. Platform fluent.</h2></div>
+        <a class="link-arrow" href="/partners/">Our partners →</a>
+      </div>
+      <Partners />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div><span class="eyebrow">Insights</span><h2>Thinking from our practice leads.</h2></div>
+        <a class="link-arrow" href="/insights/">All insights →</a>
+      </div>
+      <div class="grid g3">
+        {posts.map((p) => <InsightCard post={p} capTitle={capTitle[p.data.capability]} />)}
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</Base>
+<style>
+  .hero { position: relative; overflow: hidden; padding: clamp(80px, 12vw, 168px) 0 64px; }
+  .hero h1 { max-width: 15ch; }
+  .hero .lead { color: #b9c1d3; margin-bottom: 36px; }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .facts { list-style: none; margin: clamp(72px, 10vw, 128px) 0 0; padding: 32px 0 0; border-top: 1px solid var(--line-dark); display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .facts strong { display: block; font-size: 1.6rem; letter-spacing: -0.02em; color: #fff; }
+  .facts span { color: #9aa3b8; font-size: .95rem; }
+  @media (max-width: 960px) { .facts { grid-template-columns: 1fr 1fr; } }
+  .caps { grid-template-columns: repeat(6, 1fr); }
+  .caps .card { grid-column: span 2; min-height: 320px; }
+  .caps .card:nth-child(4), .caps .card:nth-child(5) { grid-column: span 3; }
+  .caps .feature { background: var(--ink); color: #fff; border-color: var(--ink); }
+  .caps .feature p, .caps .feature .num { color: #9aa3b8; }
+  .caps .feature .link-arrow { color: #fff; }
+  @media (max-width: 960px) { .caps { grid-template-columns: 1fr 1fr; } .caps .card, .caps .card:nth-child(4), .caps .card:nth-child(5) { grid-column: span 1; } }
+  @media (max-width: 640px) { .caps { grid-template-columns: 1fr; } .caps .card { min-height: 0; } }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 6vw, 96px); align-items: start; }
+  .split .lead { margin-bottom: 32px; }
+  @media (max-width: 960px) { .split { grid-template-columns: 1fr; } }
+  .stack { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+  .stack li { display: grid; grid-template-columns: 56px 1fr; padding: 24px 0; border-bottom: 1px solid var(--line); }
+  .stack li > span { font-weight: 600; color: var(--accent); font-variant-numeric: tabular-nums; }
+  .stack h3 { font-size: 1.15rem; margin-bottom: 4px; }
+  .stack p { margin: 0; color: var(--muted); }
+  .ind { min-height: 260px; }
+</style>

@@ -1,0 +1,33 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CTA from '../../components/CTA.astro';
+import { getCollection } from 'astro:content';
+const caps = (await getCollection('capabilities')).sort((a, b) => a.data.order - b.data.order);
+---
+<Base title="Capabilities" description="Enterprise commerce, cloud and digital transformation, data center infrastructure, data and AI, and managed operations from Quintas.">
+  <PageHero eyebrow="Capabilities" title="Everything it takes to build and run enterprise technology." lead="Five connected practices with one accountable team, from strategy and procurement through build, migration and long-term support." />
+  <section class="section">
+    <div class="wrap list">
+      {caps.map((c, i) => (
+        <a href={`/capabilities/${c.id}/`} class="row">
+          <span class="n">{String(i + 1).padStart(2, '0')}</span>
+          <div><h2>{c.data.title}</h2><p class="muted">{c.data.summary}</p></div>
+          <span class="go" aria-hidden="true">→</span>
+        </a>
+      ))}
+    </div>
+  </section>
+  <CTA />
+</Base>
+<style>
+  .list { border-top: 1px solid var(--line); }
+  .row { display: grid; grid-template-columns: 80px 1fr 60px; gap: 24px; align-items: center; padding: 40px 0; border-bottom: 1px solid var(--line); text-decoration: none; }
+  .row h2 { font-size: clamp(1.6rem, 3vw, 2.4rem); margin-bottom: 8px; }
+  .row p { margin: 0; max-width: 60ch; }
+  .n { font-weight: 600; color: var(--muted); }
+  .go { font-size: 2rem; justify-self: end; transition: transform .2s; }
+  .row:hover .go { transform: translateX(6px); color: var(--accent); }
+  .row:hover h2 { color: var(--accent); }
+  @media (max-width: 640px) { .row { grid-template-columns: 1fr; gap: 8px; } .go { display: none; } }
+</style>

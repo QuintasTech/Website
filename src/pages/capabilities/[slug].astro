@@ -1,0 +1,81 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHero from '../../components/PageHero.astro';
+import CTA from '../../components/CTA.astro';
+import Process from '../../components/Process.astro';
+import InsightCard from '../../components/InsightCard.astro';
+import { getCollection } from 'astro:content';
+export async function getStaticPaths() {
+  const caps = await getCollection('capabilities');
+  return caps.map((c) => ({ params: { slug: c.id }, props: { cap: c } }));
+}
+const { cap } = Astro.props;
+const d = cap.data;
+const posts = (await getCollection('insights')).filter((p) => p.data.capability === cap.id).sort((a, b) => +b.data.date - +a.data.date);
+const inds = (await getCollection('industries')).filter((i) => i.data.capabilities.includes(cap.id));
+---
+<Base title={d.title} description={d.summary}>
+  <PageHero eyebrow={d.title} title={d.headline} lead={d.summary} crumbs={[{ label: 'Capabilities', href: '/capabilities/' }]}>
+    <div style="margin-top:32px"><a href="/contact/" class="btn btn-primary">Talk to an expert <span class="arrow">→</span></a></div>
+  </PageHero>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head"><div><span class="eyebrow">The challenge</span><h2>What we hear from enterprise teams.</h2></div></div>
+      <div class="grid g4">
+        {d.problems.map((p) => <div class="card"><h3>{p.title}</h3><p>{p.text}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section white">
+    <div class="wrap">
+      <div class="section-head"><div><span class="eyebrow">What we deliver</span><h2>Services across the full lifecycle.</h2></div></div>
+      <div class="list-rows">
+        {d.deliver.map((x) => <div><h3>{x.title}</h3><p>{x.text}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section dark">
+    <div class="wrap">
+      <div class="section-head"><div><span class="eyebrow">How we deliver</span><h2>A predictable path from plan to production.</h2></div></div>
+      <Process />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap two">
+      <div>
+        <span class="eyebrow">Platforms</span>
+        <h2>Technologies we work with.</h2>
+        <p class="muted">We are vendor neutral: we recommend the platform that fits your requirements, then engineer it properly.</p>
+        <ul class="tags">{d.platforms.map((p) => <li>{p}</li>)}</ul>
+      </div>
+      {inds.length > 0 && (
+        <div>
+          <span class="eyebrow">Industries</span>
+          <h2>Where this matters most.</h2>
+          <ul class="ilist">{inds.map((i) => <li><a href={`/industries/${i.id}/`}>{i.data.title} <span>→</span></a></li>)}</ul>
+        </div>
+      )}
+    </div>
+  </section>
+
+  {posts.length > 0 && (
+    <section class="section white">
+      <div class="wrap">
+        <div class="section-head"><div><span class="eyebrow">Insights</span><h2>Related thinking.</h2></div><a class="link-arrow" href="/insights/">All insights →</a></div>
+        <div class="grid g3">{posts.map((p) => <InsightCard post={p} capTitle={d.title} />)}</div>
+      </div>
+    </section>
+  )}
+  <CTA title={`Ready to talk ${d.title.toLowerCase()}?`} />
+</Base>
+<style>
+  .two { display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(40px, 6vw, 96px); }
+  @media (max-width: 960px) { .two { grid-template-columns: 1fr; } }
+  .ilist { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line); }
+  .ilist a { display: flex; justify-content: space-between; padding: 18px 0; border-bottom: 1px solid var(--line); text-decoration: none; font-weight: 600; font-size: 1.1rem; }
+  .ilist a:hover { color: var(--accent); }
+</style>

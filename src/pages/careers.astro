@@ -1,0 +1,15 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../site';
+---
+<Base title="Careers" description="Join Quintas Technology Partners.">
+  <PageHero eyebrow="Careers" title="Build what’s next with us." lead="We’re always interested in experienced architects, engineers and delivery leads who enjoy hard enterprise problems." />
+  <section class="section">
+    <div class="wrap prose">
+      <h2>No open roles listed right now</h2>
+      <p class="muted">We still want to hear from great people. Send your CV and a short note about the work you’re proudest of.</p>
+      <a class="btn btn-primary" href={`mailto:${site.email}?subject=Careers`}>Email us <span class="arrow">→</span></a>
+    </div>
+  </section>
+</Base>
