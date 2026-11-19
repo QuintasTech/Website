@@ -29,5 +29,10 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <Header />
     <main id="main"><slot /></main>
     <Footer />
+    <script>
+      const io = 'IntersectionObserver' in window ? new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io && io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' }) : null;
+      document.documentElement.classList.add('js');
+      document.querySelectorAll('.reveal').forEach((el) => io ? io.observe(el) : el.classList.add('in'));
+    </script>
   </body>
 </html>

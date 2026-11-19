@@ -1,22 +1,32 @@
 ---
-const { eyebrow, title, lead, crumbs = [] } = Astro.props;
+const { eyebrow, title, lead, crumbs = [], image } = Astro.props;
+const hasVisual = Astro.slots.has('visual');
 ---
-<section class="dark page-hero">
-  <div class="hero-grid"></div><div class="hero-glow"></div>
-  <div class="wrap relative">
-    {crumbs.length > 0 && (
-      <nav class="crumbs" aria-label="Breadcrumb">
-        {crumbs.map((c) => <><a href={c.href}>{c.label}</a><span aria-hidden="true">/</span></>)}
-      </nav>
-    )}
-    {eyebrow && <span class="eyebrow">{eyebrow}</span>}
-    <h1>{title}</h1>
-    {lead && <p class="lead">{lead}</p>}
-    <slot />
+<section class="dark page-hero" class:list={{ 'has-image': !!image }}>
+  {image ? <div class="ph-photo" style={`background-image:url('${image}')`}></div> : <><div class="hero-grid"></div><div class="hero-glow"></div></>}
+  <div class:list={['wrap relative', { 'ph-split': hasVisual }]}>
+    <div>
+      {crumbs.length > 0 && (
+        <nav class="crumbs" aria-label="Breadcrumb">
+          {crumbs.map((c) => <><a href={c.href}>{c.label}</a><span aria-hidden="true">/</span></>)}
+        </nav>
+      )}
+      {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+      <h1>{title}</h1>
+      {lead && <p class="lead">{lead}</p>}
+      <slot />
+    </div>
+    {hasVisual && <div class="ph-visual"><slot name="visual" /></div>}
   </div>
 </section>
 <style>
   .crumbs { display: flex; gap: 10px; font-size: .9rem; color: #8590a8; margin-bottom: 28px; }
   .crumbs a { text-decoration: none; color: #b9c1d3; }
   .crumbs a:hover { color: #fff; }
+  .ph-split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 5vw, 80px); align-items: center; }
+  .ph-split h1 { font-size: clamp(2.4rem, 4.6vw, 4.2rem); }
+  @media (max-width: 960px) { .ph-split { grid-template-columns: 1fr; } }
+  .ph-photo { position: absolute; inset: 0; background-size: cover; background-position: center; }
+  .ph-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, #001d3f 0%, rgba(0,29,63,.88) 45%, rgba(0,29,63,.45) 100%); }
+  .has-image { padding-block: clamp(96px, 12vw, 170px); }
 </style>
