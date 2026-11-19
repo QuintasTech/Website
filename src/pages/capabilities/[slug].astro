@@ -4,6 +4,9 @@ import PageHero from '../../components/PageHero.astro';
 import CTA from '../../components/CTA.astro';
 import Process from '../../components/Process.astro';
 import InsightCard from '../../components/InsightCard.astro';
+import DRVisual from '../../components/DRVisual.astro';
+import CommerceVisual from '../../components/CommerceVisual.astro';
+import CapabilityArt from '../../components/CapabilityArt.astro';
 import { getCollection } from 'astro:content';
 export async function getStaticPaths() {
   const caps = await getCollection('capabilities');
@@ -17,6 +20,9 @@ const inds = (await getCollection('industries')).filter((i) => i.data.capabiliti
 <Base title={d.title} description={d.summary}>
   <PageHero eyebrow={d.title} title={d.headline} lead={d.summary} crumbs={[{ label: 'Capabilities', href: '/capabilities/' }]}>
     <div style="margin-top:32px"><a href="/contact/" class="btn btn-primary">Talk to an expert <span class="arrow">→</span></a></div>
+    <div slot="visual" class:list={{ 'art-box': !['disaster-recovery', 'commerce'].includes(cap.id) }}>
+      {cap.id === 'disaster-recovery' ? <DRVisual /> : cap.id === 'commerce' ? <CommerceVisual /> : <CapabilityArt id={cap.id} />}
+    </div>
   </PageHero>
 
   <section class="section">
@@ -73,6 +79,7 @@ const inds = (await getCollection('industries')).filter((i) => i.data.capabiliti
   <CTA title={`Ready to talk ${d.title.toLowerCase()}?`} />
 </Base>
 <style>
+  .art-box { background: rgba(255,255,255,.04); border: 1px solid var(--line-dark); border-radius: 20px; padding: 32px; }
   .two { display: grid; grid-template-columns: 1.3fr 1fr; gap: clamp(40px, 6vw, 96px); }
   @media (max-width: 960px) { .two { grid-template-columns: 1fr; } }
   .ilist { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--line); }

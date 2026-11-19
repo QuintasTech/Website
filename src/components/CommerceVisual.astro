@@ -1,0 +1,61 @@
+---
+// Illustrative storefront mock-up with live-commerce status cards.
+const products = [
+  { name: 'Classic', price: '$48', a: '#ffcf99', b: '#ff7a59', shape: 'circle' },
+  { name: 'Studio', price: '$72', a: '#9ec5ff', b: '#3d6bff', shape: 'pill' },
+  { name: 'Edition', price: '$96', a: '#b8f0d8', b: '#2bb673', shape: 'square' },
+];
+---
+<div class="cv" aria-hidden="true">
+  <div class="browser">
+    <div class="chrome"><span></span><span></span><span></span><div class="url">shop.yourbrand.com/en-us</div></div>
+    <div class="store">
+      <div class="snav"><b>BRAND</b><i></i><i></i><i></i><div class="cart">Cart · 2</div></div>
+      <div class="banner"><div><small>NEW SEASON</small><strong>Launching in every market at once</strong><em>Shop now</em></div></div>
+      <div class="grid3">
+        {products.map((p) => (
+          <div class="prod">
+            <div class="img" style={`--a:${p.a};--b:${p.b}`}><span class={p.shape}></span></div>
+            <div class="row"><span>{p.name}</span><span>{p.price}</span></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+  <div class="chip c1"><span class="ok">✓</span><div><b>Order synced to ERP</b><small>Inventory updated in real time</small></div></div>
+  <div class="chip c2"><span class="up">↗</span><div><b>Peak traffic handled</b><small>Infrastructure scaled automatically</small></div></div>
+  <div class="chip c3"><span class="globe">◎</span><div><b>One platform, many markets</b><small>Languages, currencies, tax</small></div></div>
+</div>
+<style>
+  .cv { position: relative; padding: 32px 24px 48px 0; }
+  .browser { background: #fff; border-radius: 16px; box-shadow: 0 40px 80px -30px rgba(0,29,63,.45), 0 0 0 1px rgba(0,29,63,.08); overflow: hidden; transform: perspective(1600px) rotateY(-6deg) rotateX(3deg); }
+  .chrome { display: flex; align-items: center; gap: 6px; padding: 12px 14px; background: #eef1f6; }
+  .chrome > span { width: 10px; height: 10px; border-radius: 50%; background: #c9d0db; }
+  .url { margin-left: 12px; flex: 1; background: #fff; border-radius: 8px; font-size: .75rem; color: #56637a; padding: 5px 10px; }
+  .store { padding: 16px; }
+  .snav { display: flex; align-items: center; gap: 14px; margin-bottom: 14px; font-size: .8rem; }
+  .snav i { width: 40px; height: 6px; border-radius: 3px; background: #dfe4ec; }
+  .cart { margin-left: auto; font-size: .72rem; background: #001d3f; color: #fff; padding: 5px 10px; border-radius: 999px; }
+  .banner { border-radius: 12px; padding: 22px; background: linear-gradient(120deg, #001d3f, #0057d9 70%, #4d8cff); color: #fff; margin-bottom: 14px; position: relative; overflow: hidden; }
+  .banner::after { content: ''; position: absolute; right: -40px; top: -40px; width: 180px; height: 180px; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,.35), transparent 70%); }
+  .banner small { font-size: .65rem; letter-spacing: .15em; opacity: .8; display: block; }
+  .banner strong { display: block; font-size: 1.15rem; max-width: 16ch; line-height: 1.2; margin: 6px 0 12px; }
+  .banner em { font-style: normal; font-size: .72rem; background: #fff; color: #001d3f; padding: 5px 12px; border-radius: 999px; font-weight: 600; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .img { aspect-ratio: 1; border-radius: 10px; background: linear-gradient(150deg, var(--a), #fff 140%); display: grid; place-items: center; }
+  .img span { background: linear-gradient(150deg, var(--a), var(--b)); box-shadow: 0 12px 20px -8px var(--b); }
+  .circle { width: 46%; aspect-ratio: 1; border-radius: 50%; }
+  .pill { width: 30%; aspect-ratio: .5; border-radius: 999px; }
+  .square { width: 44%; aspect-ratio: 1; border-radius: 12px; transform: rotate(12deg); }
+  .row { display: flex; justify-content: space-between; font-size: .72rem; margin-top: 6px; font-weight: 600; color: #001d3f; }
+  .chip { position: absolute; display: flex; gap: 12px; align-items: center; background: #fff; border-radius: 14px; padding: 12px 16px; box-shadow: 0 20px 40px -18px rgba(0,29,63,.45); font-size: .85rem; color: #001d3f; animation: floatY 6s ease-in-out infinite; }
+  .chip b { display: block; } .chip small { color: #56637a; font-size: .75rem; }
+  .chip > span { width: 32px; height: 32px; border-radius: 10px; display: grid; place-items: center; font-weight: 700; color: #fff; flex: none; }
+  .ok { background: #2bb673; } .up { background: #0057d9; } .globe { background: #001d3f; }
+  .c1 { left: -28px; bottom: -18px; }
+  .c2 { right: -8px; top: 0; animation-delay: -2s; }
+  .c3 { right: 18px; bottom: -30px; animation-delay: -4s; }
+  @keyframes floatY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+  @media (max-width: 640px) { .c1 { left: 0; } .c3 { display: none; } .browser { transform: none; } .cv { padding-right: 0; } }
+  @media (prefers-reduced-motion: reduce) { .chip { animation: none; } }
+</style>

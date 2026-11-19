@@ -2,47 +2,104 @@
 import Base from '../layouts/Base.astro';
 import CTA from '../components/CTA.astro';
 import Process from '../components/Process.astro';
-import Partners from '../components/Partners.astro';
+import Marquee from '../components/Marquee.astro';
+import HeroCanvas from '../components/HeroCanvas.astro';
+import DRVisual from '../components/DRVisual.astro';
+import CommerceVisual from '../components/CommerceVisual.astro';
+import CapabilityArt from '../components/CapabilityArt.astro';
 import InsightCard from '../components/InsightCard.astro';
 import { getCollection } from 'astro:content';
 const caps = (await getCollection('capabilities')).sort((a, b) => a.data.order - b.data.order);
 const inds = (await getCollection('industries')).sort((a, b) => a.data.order - b.data.order);
 const posts = (await getCollection('insights')).sort((a, b) => +b.data.date - +a.data.date).slice(0, 3);
 const capTitle = Object.fromEntries(caps.map((c) => [c.id, c.data.title]));
-const commerce = caps.find((c) => c.id === 'commerce');
+const dr = caps.find((c) => c.id === 'disaster-recovery')!;
+const commerce = caps.find((c) => c.id === 'commerce')!;
+const others = caps.filter((c) => !['disaster-recovery', 'commerce'].includes(c.id));
 ---
 <Base>
-  <section class="dark hero">
-    <div class="hero-grid"></div><div class="hero-glow"></div>
-    <div class="wrap relative">
-      <span class="eyebrow">Enterprise technology partner</span>
-      <h1>Engineering enterprise technology for what’s next.</h1>
-      <p class="lead">Quintas plans, builds and runs the commerce platforms, cloud and infrastructure that global brands depend on.</p>
-      <div class="actions">
+  <section class="hero dark">
+    <div class="hero-photo"></div>
+    <HeroCanvas />
+    <div class="wrap relative hero-inner">
+      <span class="eyebrow rise">Enterprise technology partner</span>
+      <h1 class="rise d1">Engineering enterprise technology for <span class="grad">what’s next.</span></h1>
+      <p class="lead rise d2">From relocating mission-critical data centers to launching global commerce platforms, Quintas plans, builds and runs the technology enterprises can’t afford to get wrong.</p>
+      <div class="actions rise d3">
         <a href="/contact/" class="btn btn-primary">Start a project <span class="arrow">→</span></a>
-        <a href="/capabilities/" class="btn btn-ghost">Explore capabilities</a>
+        <a href="#flagships" class="btn btn-ghost">See what we do</a>
       </div>
-      <ul class="facts">
-        <li><strong>60+</strong><span>years of combined industry experience</span></li>
-        <li><strong>End to end</strong><span>from strategy and procurement to support</span></li>
-        <li><strong>Vendor neutral</strong><span>the right platform, not the one we resell</span></li>
-        <li><strong>Global brands</strong><span>trusted by enterprise consumer businesses</span></li>
-      </ul>
+      <div class="hero-cards rise d4">
+        <a href="/capabilities/disaster-recovery/" class="hcard">
+          <span class="tag">Flagship</span>
+          <strong>Disaster Recovery &amp; DC Relocation</strong>
+          <span class="go">→</span>
+        </a>
+        <a href="/capabilities/commerce/" class="hcard">
+          <span class="tag">Flagship</span>
+          <strong>Enterprise Commerce</strong>
+          <span class="go">→</span>
+        </a>
+      </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="wrap">
-      <div class="section-head">
-        <div><span class="eyebrow">What we do</span><h2>Capabilities built for enterprise scale.</h2></div>
-        <p class="muted">Five practices, one accountable partner. Each one connects to the others, so strategy, build and operations never fall between vendors.</p>
+  <Marquee />
+
+  <section class="section dark flagship" id="flagships">
+    <div class="wrap split">
+      <div class="reveal">
+        <span class="eyebrow">Flagship · Disaster Recovery &amp; Relocation</span>
+        <h2>Move your data center. Never stop the business.</h2>
+        <p class="lead muted">{dr.data.summary}</p>
+        <ul class="ticks">
+          <li>DR room and data center relocations, planned rack by rack</li>
+          <li>Recovery sites in a second location, colocation or the cloud</li>
+          <li>Replication, immutable backup and tested failover</li>
+          <li>Runbooks and test reports your auditors can rely on</li>
+        </ul>
+        <a class="btn btn-primary" href="/capabilities/disaster-recovery/">Explore DR &amp; relocation <span class="arrow">→</span></a>
       </div>
-      <div class="grid caps">
-        {caps.map((c, i) => (
-          <a class:list={['card', { feature: i === 0 }]} href={`/capabilities/${c.id}/`}>
-            <span class="num">{String(i + 1).padStart(2, '0')}</span>
+      <div class="reveal d1"><DRVisual /></div>
+    </div>
+    <div class="wrap">
+      <ol class="phases reveal">
+        <li><span>01</span><b>Discover</b><small>Inventory every asset, dependency and recovery objective</small></li>
+        <li><span>02</span><b>Plan</b><small>Move groups, cutover windows and rollback for every system</small></li>
+        <li><span>03</span><b>Protect</b><small>Replicate and back up before a single cable is pulled</small></li>
+        <li><span>04</span><b>Move</b><small>De-install, secure transport, rack, stack and cable</small></li>
+        <li><span>05</span><b>Prove</b><small>Validate services and run a recovery test at the new site</small></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section flagship-light">
+    <div class="wrap split reverse">
+      <div class="reveal"><CommerceVisual /></div>
+      <div class="reveal d1">
+        <span class="eyebrow">Flagship · Enterprise Commerce</span>
+        <h2>Commerce platforms built for global brands.</h2>
+        <p class="lead muted">{commerce.data.summary}</p>
+        <div class="mini">
+          {commerce.data.deliver.slice(0, 4).map((d) => <div><b>{d.title}</b><p>{d.text}</p></div>)}
+        </div>
+        <a class="btn btn-primary" href="/capabilities/commerce/">Explore enterprise commerce <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section white">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div><span class="eyebrow">The full stack</span><h2>Built on capabilities that work together.</h2></div>
+        <a class="link-arrow" href="/capabilities/">All capabilities →</a>
+      </div>
+      <div class="grid g4">
+        {others.map((c) => (
+          <a class="card art-card reveal" href={`/capabilities/${c.id}/`}>
+            <div class="art"><CapabilityArt id={c.id} /></div>
             <h3>{c.data.title}</h3>
-            <p>{c.data.summary}</p>
+            <p>{c.data.eyebrow}</p>
             <span class="link-arrow">Explore <span>→</span></span>
           </a>
         ))}
@@ -50,27 +107,9 @@ const commerce = caps.find((c) => c.id === 'commerce');
     </div>
   </section>
 
-  {commerce && (
-  <section class="section white">
-    <div class="wrap split">
-      <div>
-        <span class="eyebrow">Featured capability</span>
-        <h2>Enterprise commerce, from storefront to supply chain.</h2>
-        <p class="lead muted">{commerce.data.summary}</p>
-        <a class="btn btn-primary" href="/capabilities/commerce/">See our commerce practice <span class="arrow">→</span></a>
-      </div>
-      <ol class="stack">
-        {commerce.data.deliver.map((d, i) => (
-          <li><span>{String(i + 1).padStart(2, '0')}</span><div><h3>{d.title}</h3><p>{d.text}</p></div></li>
-        ))}
-      </ol>
-    </div>
-  </section>
-  )}
-
   <section class="section dark">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head reveal">
         <div><span class="eyebrow">How we deliver</span><h2>One partner across the whole lifecycle.</h2></div>
         <p class="muted">A proven six-step model keeps large programmes predictable, from the first workshop to long-term support.</p>
       </div>
@@ -80,16 +119,19 @@ const commerce = caps.find((c) => c.id === 'commerce');
 
   <section class="section">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head reveal">
         <div><span class="eyebrow">Industries</span><h2>Deep expertise where it matters.</h2></div>
         <a class="link-arrow" href="/industries/">All industries →</a>
       </div>
       <div class="grid g3">
         {inds.map((i) => (
-          <a class="card ind" href={`/industries/${i.id}/`}>
-            <h3>{i.data.title}</h3>
-            <p>{i.data.summary}</p>
-            <span class="link-arrow">Learn more <span>→</span></span>
+          <a class={`ind-card reveal ind-${i.id}`} href={`/industries/${i.id}/`}>
+            <div class="ind-bg"></div>
+            <div class="ind-body">
+              <h3>{i.data.title}</h3>
+              <p>{i.data.summary}</p>
+              <span class="link-arrow">Learn more <span>→</span></span>
+            </div>
           </a>
         ))}
       </div>
@@ -98,17 +140,7 @@ const commerce = caps.find((c) => c.id === 'commerce');
 
   <section class="section white">
     <div class="wrap">
-      <div class="section-head">
-        <div><span class="eyebrow">Technology ecosystem</span><h2>Vendor neutral. Platform fluent.</h2></div>
-        <a class="link-arrow" href="/partners/">Our partners →</a>
-      </div>
-      <Partners />
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">
-      <div class="section-head">
+      <div class="section-head reveal">
         <div><span class="eyebrow">Insights</span><h2>Thinking from our practice leads.</h2></div>
         <a class="link-arrow" href="/insights/">All insights →</a>
       </div>
@@ -121,29 +153,53 @@ const commerce = caps.find((c) => c.id === 'commerce');
   <CTA />
 </Base>
 <style>
-  .hero { position: relative; overflow: hidden; padding: clamp(80px, 12vw, 168px) 0 64px; }
-  .hero h1 { max-width: 15ch; }
-  .hero .lead { color: #b9c1d3; margin-bottom: 36px; }
+  .hero { position: relative; overflow: hidden; padding: clamp(96px, 13vw, 180px) 0 72px; min-height: 760px; display: flex; align-items: center; }
+  .hero-photo { position: absolute; inset: 0; background: url('/images/city-hero.jpg') right center / cover no-repeat; }
+  .hero-photo::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, #001d3f 0%, rgba(0,29,63,.92) 38%, rgba(0,29,63,.55) 70%, rgba(0,29,63,.35) 100%), linear-gradient(0deg, #001d3f 0%, transparent 35%); }
+  .hero-inner { width: 100%; }
+  .hero h1 { max-width: 13ch; font-size: clamp(2.8rem, 7vw, 6.2rem); }
+  .grad { background: linear-gradient(90deg, #6fa3ff, #b9d2ff 60%, #fff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .hero .lead { color: #c9d3e6; margin-bottom: 36px; max-width: 52ch; }
   .actions { display: flex; gap: 12px; flex-wrap: wrap; }
-  .facts { list-style: none; margin: clamp(72px, 10vw, 128px) 0 0; padding: 32px 0 0; border-top: 1px solid var(--line-dark); display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
-  .facts strong { display: block; font-size: 1.6rem; letter-spacing: -0.02em; color: #fff; }
-  .facts span { color: #9aa3b8; font-size: .95rem; }
-  @media (max-width: 960px) { .facts { grid-template-columns: 1fr 1fr; } }
-  .caps { grid-template-columns: repeat(6, 1fr); }
-  .caps .card { grid-column: span 2; min-height: 320px; }
-  .caps .card:nth-child(4), .caps .card:nth-child(5) { grid-column: span 3; }
-  .caps .feature { background: var(--ink); color: #fff; border-color: var(--ink); }
-  .caps .feature p, .caps .feature .num { color: #9aa3b8; }
-  .caps .feature .link-arrow { color: #fff; }
-  @media (max-width: 960px) { .caps { grid-template-columns: 1fr 1fr; } .caps .card, .caps .card:nth-child(4), .caps .card:nth-child(5) { grid-column: span 1; } }
-  @media (max-width: 640px) { .caps { grid-template-columns: 1fr; } .caps .card { min-height: 0; } }
-  .split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 6vw, 96px); align-items: start; }
-  .split .lead { margin-bottom: 32px; }
-  @media (max-width: 960px) { .split { grid-template-columns: 1fr; } }
-  .stack { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
-  .stack li { display: grid; grid-template-columns: 56px 1fr; padding: 24px 0; border-bottom: 1px solid var(--line); }
-  .stack li > span { font-weight: 600; color: var(--accent); font-variant-numeric: tabular-nums; }
-  .stack h3 { font-size: 1.15rem; margin-bottom: 4px; }
-  .stack p { margin: 0; color: var(--muted); }
-  .ind { min-height: 260px; }
+  .hero-cards { display: flex; gap: 16px; margin-top: clamp(56px, 8vw, 96px); flex-wrap: wrap; }
+  .hcard { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 8px 24px; min-width: 280px; padding: 20px 22px; border-radius: 14px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.16); backdrop-filter: blur(10px); text-decoration: none; transition: background .2s, transform .2s; }
+  .hcard:hover { background: rgba(255,255,255,.14); transform: translateY(-3px); }
+  .hcard .tag { grid-column: 1 / -1; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: #6fa3ff; font-weight: 600; }
+  .hcard strong { font-size: 1.1rem; }
+  .hcard .go { font-size: 1.3rem; }
+  .rise { animation: rise .9s cubic-bezier(.2,.7,.2,1) both; }
+  .d1 { animation-delay: .1s; } .d2 { animation-delay: .2s; } .d3 { animation-delay: .3s; } .d4 { animation-delay: .45s; }
+  @keyframes rise { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+  .split { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(40px, 6vw, 96px); align-items: center; }
+  .split.reverse { grid-template-columns: 1.1fr 1fr; }
+  @media (max-width: 960px) { .split, .split.reverse { grid-template-columns: 1fr; } .split.reverse > :first-child { order: 2; } }
+  .flagship { background: radial-gradient(ellipse at 85% 30%, #0a3a7a 0%, #001d3f 55%); }
+  .flagship h2, .flagship-light h2 { font-size: clamp(2.2rem, 4.2vw, 3.8rem); max-width: 14ch; }
+  .flagship .lead { margin-bottom: 24px; }
+  .ticks { list-style: none; padding: 0; margin: 0 0 32px; display: grid; gap: 12px; }
+  .ticks li { padding-left: 32px; position: relative; color: #dfe6f3; }
+  .ticks li::before { content: '✓'; position: absolute; left: 0; top: 1px; width: 22px; height: 22px; border-radius: 50%; background: rgba(61,220,151,.15); color: #3ddc97; display: grid; place-items: center; font-size: .75rem; font-weight: 700; }
+  .phases { list-style: none; padding: 32px 0 0; margin: 72px 0 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 24px; border-top: 1px solid var(--line-dark); }
+  .phases span { color: #6fa3ff; font-weight: 600; font-size: .85rem; display: block; margin-bottom: 10px; }
+  .phases b { display: block; font-size: 1.2rem; margin-bottom: 6px; }
+  .phases small { color: #9fb0cc; font-size: .92rem; line-height: 1.5; display: block; }
+  @media (max-width: 960px) { .phases { grid-template-columns: 1fr 1fr; } }
+  .flagship-light { background: linear-gradient(180deg, #f5f4f0, #e9eef7); overflow: hidden; }
+  .flagship-light .lead { margin-bottom: 28px; }
+  .mini { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 28px; margin-bottom: 36px; }
+  .mini b { display: block; margin-bottom: 4px; }
+  .mini p { margin: 0; color: var(--muted); font-size: .95rem; line-height: 1.5; }
+  @media (max-width: 640px) { .mini { grid-template-columns: 1fr; } }
+  .art-card .art { background: var(--ink); border-radius: 10px; padding: 18px; margin-bottom: 24px; }
+  .art-card p { font-size: .95rem; }
+  .ind-card { position: relative; min-height: 420px; border-radius: var(--radius); overflow: hidden; display: flex; align-items: flex-end; text-decoration: none; color: #fff; isolation: isolate; }
+  .ind-bg { position: absolute; inset: 0; z-index: -1; transition: transform .6s; background-size: cover; background-position: center; }
+  .ind-card:hover .ind-bg { transform: scale(1.05); }
+  .ind-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,29,63,.05) 20%, rgba(0,29,63,.92) 85%); }
+  .ind-retail .ind-bg { background-image: radial-gradient(circle at 25% 30%, #ff9a6b 0 12%, transparent 13%), radial-gradient(circle at 70% 25%, #6fa3ff 0 9%, transparent 10%), radial-gradient(circle at 60% 55%, #2bb673 0 7%, transparent 8%), linear-gradient(140deg, #0057d9, #001d3f); }
+  .ind-manufacturing .ind-bg { background-image: repeating-linear-gradient(90deg, rgba(255,255,255,.06) 0 2px, transparent 2px 40px), repeating-linear-gradient(0deg, rgba(255,255,255,.06) 0 2px, transparent 2px 40px), radial-gradient(circle at 70% 30%, #4d8cff 0 18%, transparent 19%), radial-gradient(circle at 70% 30%, #0a3a7a 0 26%, transparent 27%), linear-gradient(160deg, #0a3a7a, #001d3f); }
+  .ind-government .ind-bg { background-image: url('/images/capitol.jpg'); }
+  .ind-body { padding: 28px; }
+  .ind-body p { color: #c9d3e6; }
+  .ind-body .link-arrow { color: #fff; }
 </style>

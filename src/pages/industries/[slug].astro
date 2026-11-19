@@ -16,7 +16,7 @@ const capTitle = Object.fromEntries(allCaps.map((c) => [c.id, c.data.title]));
 const posts = (await getCollection('insights')).filter((p) => p.data.industry === ind.id);
 ---
 <Base title={d.title} description={d.summary}>
-  <PageHero eyebrow={d.title} title={d.headline} lead={d.summary} crumbs={[{ label: 'Industries', href: '/industries/' }]} />
+  <PageHero eyebrow={d.title} title={d.headline} lead={d.summary} crumbs={[{ label: 'Industries', href: '/industries/' }]} image={ind.id === 'government' ? '/images/capitol.jpg' : ind.id === 'retail' ? '/images/city-hero.jpg' : undefined} />
   <section class="section">
     <div class="wrap">
       <div class="section-head"><div><span class="eyebrow">Industry challenges</span><h2>What’s holding teams back.</h2></div></div>

@@ -1,6 +1,6 @@
 ---
 title: Data Center Infrastructure
-order: 3
+order: 4
 eyebrow: Compute, storage and networks that just run
 headline: Building the foundation for enterprise performance.
 summary: We plan, procure, deploy and support the compute, storage and network infrastructure that critical applications depend on.
