@@ -3,7 +3,7 @@ export const site = {
   name: 'Quintas Technology Partners',
   short: 'Quintas',
   tagline: 'Engineering enterprise technology for what’s next.',
-  email: 'hello@quintastechnology.com', // TODO confirm address
+  email: 'info@quintastechnology.com',
   phone: '', // TODO add phone number
   address: ['1603 Capitol Avenue, Suite 413', 'Cheyenne, WY 82001, USA'],
   linkedin: 'https://www.linkedin.com/', // TODO company page URL
