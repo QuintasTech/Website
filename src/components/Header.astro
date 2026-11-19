@@ -37,14 +37,14 @@ const path = Astro.url.pathname;
   </div>
 </header>
 <style>
-  .hdr { position: sticky; top: 0; z-index: 50; background: rgba(10,15,28,.92); backdrop-filter: blur(12px); color: #fff; border-bottom: 1px solid #1d2539; }
+  .hdr { position: sticky; top: 0; z-index: 50; background: rgba(0,29,63,.94); backdrop-filter: blur(12px); color: #fff; border-bottom: 1px solid #123463; }
   .bar { display: flex; align-items: center; gap: 32px; height: 76px; }
   .home { text-decoration: none; }
   nav { margin-left: auto; }
   .menu { display: flex; gap: 6px; list-style: none; margin: 0; padding: 0; }
   .menu > li { position: relative; }
   .menu > li > a { display: block; padding: 10px 14px; text-decoration: none; font-weight: 500; font-size: .96rem; border-radius: 8px; color: #d6dbe7; }
-  .menu > li > a:hover, .menu > li > a.active { color: #fff; background: #1a2236; }
+  .menu > li > a:hover, .menu > li > a.active { color: #fff; background: #0b3060; }
   .panel { position: absolute; top: 100%; left: -12px; width: 420px; background: #fff; color: var(--ink); border-radius: 14px; padding: 10px; box-shadow: 0 24px 60px -20px rgba(0,0,0,.5); opacity: 0; visibility: hidden; transform: translateY(6px); transition: .18s; }
   .has-panel:hover .panel, .has-panel:focus-within .panel { opacity: 1; visibility: visible; transform: none; }
   .panel a { display: block; padding: 12px 14px; border-radius: 10px; text-decoration: none; }
@@ -56,7 +56,7 @@ const path = Astro.url.pathname;
   .mobile summary { list-style: none; cursor: pointer; width: 40px; height: 40px; display: flex; flex-direction: column; justify-content: center; gap: 6px; padding: 8px; }
   .mobile summary::-webkit-details-marker { display: none; }
   .mobile summary span { height: 2px; background: #fff; display: block; }
-  .mpanel { position: absolute; left: 0; right: 0; top: 76px; background: var(--ink); padding: 8px 16px 24px; border-bottom: 1px solid #1d2539; }
-  .mpanel a { display: block; padding: 14px 0; text-decoration: none; font-size: 1.15rem; border-bottom: 1px solid #1d2539; }
+  .mpanel { position: absolute; left: 0; right: 0; top: 76px; background: var(--ink); padding: 8px 16px 24px; border-bottom: 1px solid #123463; }
+  .mpanel a { display: block; padding: 14px 0; text-decoration: none; font-size: 1.15rem; border-bottom: 1px solid #123463; }
   @media (max-width: 960px) { nav, .cta { display: none; } .mobile { display: block; } }
 </style>
