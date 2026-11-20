@@ -8,7 +8,7 @@ const path = Astro.url.pathname;
 ---
 <header class="hdr">
   <div class="wrap bar">
-    <a href="/" class="home"><Logo /></a>
+    <a href="/" class="home"><Logo variant="color" /></a>
     <nav aria-label="Main">
       <ul class="menu">
         <li class="has-panel">
@@ -37,26 +37,28 @@ const path = Astro.url.pathname;
   </div>
 </header>
 <style>
-  .hdr { position: sticky; top: 0; z-index: 50; background: rgba(0,29,63,.94); backdrop-filter: blur(12px); color: #fff; border-bottom: 1px solid #123463; }
+  .hdr { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.92); backdrop-filter: blur(14px); color: var(--ink); border-bottom: 1px solid var(--line); }
   .bar { display: flex; align-items: center; gap: 32px; height: 76px; }
   .home { text-decoration: none; }
   nav { margin-left: auto; }
   .menu { display: flex; gap: 6px; list-style: none; margin: 0; padding: 0; }
   .menu > li { position: relative; }
-  .menu > li > a { display: block; padding: 10px 14px; text-decoration: none; font-weight: 500; font-size: .96rem; border-radius: 8px; color: #d6dbe7; }
-  .menu > li > a:hover, .menu > li > a.active { color: #fff; background: #0b3060; }
+  .menu > li > a { display: block; padding: 10px 14px; text-decoration: none; font-weight: 500; font-size: .96rem; border-radius: 8px; color: #2b3a55; }
+  .menu > li > a:hover, .menu > li > a.active { color: var(--ink); background: #eef2f8; }
   .panel { position: absolute; top: 100%; left: -12px; width: 420px; background: #fff; color: var(--ink); border-radius: 14px; padding: 10px; box-shadow: 0 24px 60px -20px rgba(0,0,0,.5); opacity: 0; visibility: hidden; transform: translateY(6px); transition: .18s; }
   .has-panel:hover .panel, .has-panel:focus-within .panel { opacity: 1; visibility: visible; transform: none; }
   .panel a { display: block; padding: 12px 14px; border-radius: 10px; text-decoration: none; }
   .panel a:hover { background: var(--paper); }
   .panel strong { display: block; font-size: .98rem; }
   .panel span { display: block; font-size: .85rem; color: var(--muted); line-height: 1.4; }
-  .cta { padding: 11px 20px; }
+  .cta { padding: 11px 20px; background: var(--ink); }
+  .cta:hover { background: var(--accent); }
+  .panel { border: 1px solid var(--line); }
   .mobile { display: none; margin-left: auto; }
   .mobile summary { list-style: none; cursor: pointer; width: 40px; height: 40px; display: flex; flex-direction: column; justify-content: center; gap: 6px; padding: 8px; }
   .mobile summary::-webkit-details-marker { display: none; }
-  .mobile summary span { height: 2px; background: #fff; display: block; }
-  .mpanel { position: absolute; left: 0; right: 0; top: 76px; background: var(--ink); padding: 8px 16px 24px; border-bottom: 1px solid #123463; }
-  .mpanel a { display: block; padding: 14px 0; text-decoration: none; font-size: 1.15rem; border-bottom: 1px solid #123463; }
+  .mobile summary span { height: 2px; background: var(--ink); display: block; }
+  .mpanel { position: absolute; left: 0; right: 0; top: 76px; background: #fff; padding: 8px 16px 24px; border-bottom: 1px solid var(--line); }
+  .mpanel a { display: block; padding: 14px 0; text-decoration: none; font-size: 1.15rem; border-bottom: 1px solid var(--line); }
   @media (max-width: 960px) { nav, .cta { display: none; } .mobile { display: block; } }
 </style>

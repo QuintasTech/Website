@@ -3,3 +3,5 @@ dist/
 .astro/
 preview/
 .DS_Store
+preview-v2
+preview-v3

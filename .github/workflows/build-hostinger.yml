@@ -1,0 +1,42 @@
+# Two-stage hosting on Hostinger.
+#   push to `staging` -> builds to the `hostinger-staging` branch (staging.quintastechnology.com, not indexed)
+#   push to `main`    -> builds to the `hostinger` branch (quintastechnology.com)
+# Hostinger's Git deployment (hPanel > Advanced > Git) pulls each branch into its site folder.
+name: Build for Hostinger
+on:
+  push:
+    branches: [main, staging]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Build
+        env:
+          PUBLIC_SITE_ENV: ${{ github.ref_name == 'main' && 'production' || 'staging' }}
+        run: npm run build
+      - name: Block search engines on staging
+        if: github.ref_name != 'main'
+        run: |
+          printf 'User-agent: *\nDisallow: /\n' > dist/robots.txt
+          rm -f dist/sitemap-*.xml
+          printf '\n<IfModule mod_headers.c>\n  Header always set X-Robots-Tag "noindex, nofollow"\n</IfModule>\n' >> dist/.htaccess
+      - name: Publish to the deploy branch
+        env:
+          TARGET: ${{ github.ref_name == 'main' && 'hostinger' || 'hostinger-staging' }}
+        run: |
+          cd dist
+          git init -q -b "$TARGET"
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add -A
+          git commit -qm "Build ${GITHUB_SHA::7} from ${GITHUB_REF_NAME}"
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" "$TARGET"

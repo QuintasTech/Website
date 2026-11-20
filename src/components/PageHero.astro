@@ -1,8 +1,9 @@
 ---
+import Motif from './Motif.astro';
 const { eyebrow, title, lead, crumbs = [] } = Astro.props;
 ---
 <section class="dark page-hero">
-  <div class="hero-grid"></div><div class="hero-glow"></div>
+  <div class="page-motif"><Motif variant="quiet" /></div>
   <div class="wrap relative">
     {crumbs.length > 0 && (
       <nav class="crumbs" aria-label="Breadcrumb">
