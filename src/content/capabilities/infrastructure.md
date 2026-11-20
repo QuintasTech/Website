@@ -1,5 +1,7 @@
 ---
 title: Data Center Infrastructure
+seoTitle: "Data Center Infrastructure Services & Solutions | Quintas"
+seoDescription: "Data center design, server, storage and network deployment, and refresh with Dell, HPE, Cisco and Nutanix. Enterprise infrastructure services from Raleigh, NC, across the US."
 order: 2
 eyebrow: Compute, storage and networks that just run
 headline: Building the foundation for enterprise performance.

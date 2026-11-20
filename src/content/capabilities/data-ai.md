@@ -1,5 +1,7 @@
 ---
 title: Data & AI
+seoTitle: "Data, Analytics & AI Infrastructure Services | Quintas"
+seoDescription: "Data platforms, governance, analytics and AI-ready infrastructure on Microsoft Fabric, Azure and AWS, so enterprises can put AI into production safely and at scale."
 order: 4
 eyebrow: Data foundations that make AI useful
 headline: Turn enterprise data into decisions and AI that works.

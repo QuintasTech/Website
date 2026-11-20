@@ -1,5 +1,7 @@
 ---
 title: Enterprise Commerce
+seoTitle: "Enterprise & B2B Ecommerce Platform Services | Quintas"
+seoDescription: "Enterprise and B2B ecommerce on Shopify Plus, Salesforce Commerce Cloud, Adobe Commerce and SAP Commerce, integrated with your ERP, for brands and manufacturers."
 order: 5
 eyebrow: Commerce platforms built to scale with your brand
 headline: Commerce platforms that perform at enterprise scale.
