@@ -1,5 +1,7 @@
 ---
 title: Cloud & Digital Transformation
+seoTitle: "Cloud Migration & Digital Transformation Services | Quintas"
+seoDescription: "Cloud migration to Microsoft Azure and AWS, Microsoft 365 and modern workplace for US enterprises and manufacturers. Plan, migrate and govern without disrupting operations."
 order: 1
 eyebrow: Modernise applications and move to the cloud
 headline: Accelerating business through digital transformation.

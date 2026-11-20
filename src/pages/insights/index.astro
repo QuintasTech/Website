@@ -9,7 +9,7 @@ const capTitle = Object.fromEntries(caps.map((c) => [c.id, c.data.title]));
 const posts = (await getCollection('insights')).sort((a, b) => +b.data.date - +a.data.date);
 const used = caps.filter((c) => posts.some((p) => p.data.capability === c.id));
 ---
-<Base title="Insights" description="Practical guidance on enterprise commerce, cloud, infrastructure and AI from the Quintas team.">
+<Base seoTitle="Enterprise IT & Manufacturing Tech Insights | Quintas" description="Practical guidance on cloud, data center infrastructure, cybersecurity, AI and commerce for enterprise and manufacturing IT leaders, from the Quintas team.">
   <PageHero eyebrow="Insights" title="Knowledge from the people who build it." lead="Practical guidance on enterprise commerce, cloud, infrastructure and AI, written by our practice leads." />
   <section class="section">
     <div class="wrap">

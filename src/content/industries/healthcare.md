@@ -1,5 +1,7 @@
 ---
 title: Healthcare
+seoTitle: "Healthcare IT Infrastructure & Cloud Services | Quintas"
+seoDescription: "Secure infrastructure, cloud and data platforms for healthcare providers and organizations, designed for uptime, privacy and compliance."
 order: 4
 headline: Reliable, secure technology for healthcare.
 summary: Secure infrastructure, cloud and data platforms for providers and healthcare organisations.

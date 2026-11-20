@@ -5,7 +5,7 @@ import CTA from '../../components/CTA.astro';
 import { getCollection } from 'astro:content';
 const inds = (await getCollection('industries')).sort((a, b) => a.data.order - b.data.order);
 ---
-<Base title="Industries" description="Quintas brings enterprise technology expertise to retail, manufacturing, government and healthcare.">
+<Base seoTitle="Industries We Serve: Manufacturing, CPG & More | Quintas" description="Enterprise IT for manufacturers, consumer goods and retail brands, healthcare and the public sector, from our Raleigh, NC office to sites across the US.">
   <PageHero eyebrow="Industries" title="Expertise shaped by the industries we serve." lead="Every sector has its own pressures. We pair our capabilities with an understanding of how your industry works." />
   <section class="section">
     <div class="wrap grid g3">

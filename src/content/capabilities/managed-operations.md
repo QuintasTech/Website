@@ -1,5 +1,7 @@
 ---
 title: Managed Operations
+seoTitle: "Managed IT Services for Enterprises | Raleigh, NC | Quintas"
+seoDescription: "Managed IT services with proactive monitoring, patching, incident response and clear SLAs for infrastructure, cloud and commerce platforms, from Raleigh, NC across the US."
 order: 6
 eyebrow: Ongoing support for critical systems
 headline: Keep critical technology running, and improving.

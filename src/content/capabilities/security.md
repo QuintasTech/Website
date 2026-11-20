@@ -1,5 +1,7 @@
 ---
 title: Cybersecurity
+seoTitle: "Enterprise Cybersecurity Services & Consulting | Quintas"
+seoDescription: "Cybersecurity assessments, identity and access, endpoint, network and cloud security, and tested backup for enterprises and manufacturers across North Carolina and the US."
 order: 3
 eyebrow: Protect people, data and infrastructure
 headline: Security built into every layer of your technology.

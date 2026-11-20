@@ -1,5 +1,7 @@
 ---
 title: Five ways to bring cloud spend back under control
+seoTitle: "5 Ways to Reduce Cloud Costs Without Slowing Teams | Quintas"
+seoDescription: "Cloud cost optimization steps enterprises use to cut Azure and AWS waste: tagging, rightsizing, scheduling, commitments and cost visibility."
 summary: Practical steps enterprises use to cut waste without slowing teams down.
 date: 2026-10-28
 author: Quintas Cloud Practice
