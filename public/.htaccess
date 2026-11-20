@@ -1,0 +1,43 @@
+# Quintas Technology Partners - static site on Hostinger (Apache/LiteSpeed)
+Options -Indexes
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+RewriteEngine On
+
+# Force HTTPS and the bare domain
+RewriteCond %{HTTPS} off [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^(.*)$ https://quintastechnology.com/$1 [R=301,L]
+
+# Old WordPress pages to their new homes
+RewriteRule ^about-us/?$ /about/ [R=301,L]
+RewriteRule ^data-center-infrastructure/?$ /capabilities/infrastructure/ [R=301,L]
+RewriteRule ^digital-transformation/?$ /capabilities/cloud/ [R=301,L]
+RewriteRule ^manufacturing/?$ /industries/manufacturing/ [R=301,L]
+RewriteRule ^government/?$ /industries/government/ [R=301,L]
+RewriteRule ^(wp-admin|wp-login\.php|wp-content|wp-includes)(/.*)?$ / [R=302,L]
+
+# Add a trailing slash to folder URLs
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteCond %{REQUEST_URI} !/$
+RewriteRule ^(.*)$ /$1/ [R=301,L]
+
+# Caching
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html "access plus 0 seconds"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/png "access plus 1 month"
+  ExpiresByType image/jpeg "access plus 1 month"
+  ExpiresByType image/svg+xml "access plus 1 month"
+</IfModule>
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml application/xml text/plain
+</IfModule>
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+</IfModule>
