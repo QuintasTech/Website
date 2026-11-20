@@ -1,16 +1,18 @@
 ---
-const items = ['Microsoft Azure', 'AWS', 'Cisco', 'Dell Technologies', 'HPE', 'Nutanix', 'VMware', 'Veeam', 'Zerto', 'Shopify Plus', 'Salesforce Commerce Cloud', 'Adobe Commerce', 'commercetools'];
+import PartnerLogo from './PartnerLogo.astro';
+import { partners } from '../data/partners';
 ---
-<div class="marquee" aria-label="Technologies we work with">
+<div class="marquee" aria-label="Technology partners">
   <div class="track">
-    {[0, 1].map((k) => <ul aria-hidden={k === 1 ? 'true' : undefined}>{items.map((i) => <li>{i}</li>)}</ul>)}
+    {[0, 1].map((k) => <ul aria-hidden={k === 1 ? 'true' : undefined}>{partners.map((p) => <li><PartnerLogo p={p} /></li>)}</ul>)}
   </div>
 </div>
 <style>
-  .marquee { overflow: hidden; border-block: 1px solid var(--line); background: var(--white); padding: 26px 0; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-  .track { display: flex; width: max-content; animation: scroll 50s linear infinite; }
-  ul { display: flex; gap: 64px; padding: 0 32px; margin: 0; list-style: none; }
-  li { font-weight: 700; font-size: 1.35rem; letter-spacing: -0.02em; color: #8a94a8; white-space: nowrap; }
+  .marquee { overflow: hidden; border-block: 1px solid var(--line); background: var(--white); padding: 30px 0; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+  .track { display: flex; width: max-content; animation: scroll 55s linear infinite; }
+  .marquee:hover .track { animation-play-state: paused; }
+  ul { display: flex; align-items: center; gap: 72px; padding: 0 36px; margin: 0; list-style: none; }
+  li { display: flex; align-items: center; height: 44px; }
   @keyframes scroll { to { transform: translateX(-50%); } }
   @media (prefers-reduced-motion: reduce) { .track { animation: none; } }
 </style>

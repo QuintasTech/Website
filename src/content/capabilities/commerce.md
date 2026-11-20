@@ -1,6 +1,6 @@
 ---
 title: Enterprise Commerce
-order: 2
+order: 5
 eyebrow: Commerce platforms built to scale with your brand
 headline: Commerce platforms that perform at enterprise scale.
 summary: We design, build and run ecommerce for brands that sell across markets, channels and currencies, from storefront to the ERP behind it.

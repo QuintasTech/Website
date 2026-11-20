@@ -1,0 +1,16 @@
+---
+const { p } = Astro.props;
+const h = 34 * (p.scale ?? 1);
+---
+<span class="plogo" title={p.name}>
+  <span class="pmark" style={`height:${h}px`} set:html={p.svg.replace('<svg', `<svg aria-hidden="true" focusable="false"`)} />
+  {p.label ? <span class="plabel">{p.label}</span> : <span class="sr-only">{p.name}</span>}
+</span>
+<style>
+  .plogo { display: inline-flex; align-items: center; gap: 10px; filter: grayscale(1); opacity: .62; transition: filter .3s, opacity .3s; white-space: nowrap; }
+  .plogo:hover { filter: none; opacity: 1; }
+  .pmark { display: inline-flex; }
+  .pmark :global(svg) { height: 100%; width: auto; display: block; }
+  .plabel { font-weight: 700; font-size: 1.15rem; letter-spacing: -0.01em; color: #1f2a3d; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+</style>

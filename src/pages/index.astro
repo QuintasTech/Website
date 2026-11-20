@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import CTA from '../components/CTA.astro';
 import Marquee from '../components/Marquee.astro';
 import Motif from '../components/Motif.astro';
+import Process from '../components/Process.astro';
 import CapabilityArt from '../components/CapabilityArt.astro';
 import InsightCard from '../components/InsightCard.astro';
 import { getCollection } from 'astro:content';
@@ -10,27 +11,6 @@ const caps = (await getCollection('capabilities')).sort((a, b) => a.data.order -
 const inds = (await getCollection('industries')).sort((a, b) => a.data.order - b.data.order);
 const posts = (await getCollection('insights')).sort((a, b) => +b.data.date - +a.data.date).slice(0, 3);
 const capTitle = Object.fromEntries(caps.map((c) => [c.id, c.data.title]));
-const flagships = [
-  {
-    id: 'disaster-recovery', n: '01', tone: 'navy',
-    title: 'Disaster Recovery & Data Center Relocation',
-    line: 'Move or protect critical infrastructure without stopping the business.',
-    points: ['DR room and data center relocations', 'Recovery sites on-premises, colocation or cloud', 'Replication, immutable backup, tested failover', 'Runbooks and reports for auditors'],
-  },
-  {
-    id: 'commerce', n: '02', tone: 'blue',
-    title: 'Enterprise Commerce',
-    line: 'Commerce platforms for brands that sell across markets and channels.',
-    points: ['Platform selection and replatforming', 'Storefront and headless experience build', 'ERP, PIM, OMS and payment integrations', 'Hosting, performance and run support'],
-  },
-];
-const method = [
-  ['Discover', 'Every asset, dependency and recovery objective on record.'],
-  ['Plan', 'Move groups, cutover windows and a rollback for every system.'],
-  ['Protect', 'Replicate and back up before a single cable is pulled.'],
-  ['Move', 'De-install, secure transport, rack, stack and cable.'],
-  ['Prove', 'Validate services and pass a recovery test at the new site.'],
-];
 ---
 <Base>
   <section class="hero">
@@ -38,10 +18,10 @@ const method = [
       <div class="hero-copy">
         <span class="eyebrow">Enterprise technology partner</span>
         <h1>Engineering enterprise technology for <span class="hl">what’s next.</span></h1>
-        <p class="lead muted">Quintas relocates and protects mission-critical infrastructure, and builds the commerce platforms global brands sell on. One accountable team from plan to production.</p>
+        <p class="lead muted">Quintas helps organisations plan, build and run the technology their business depends on, from infrastructure and cloud to security, data and digital commerce.</p>
         <div class="actions">
           <a href="/contact/" class="btn btn-primary">Start a project <span class="arrow">→</span></a>
-          <a href="#flagships" class="btn btn-ghost">Our flagship practices</a>
+          <a href="/capabilities/" class="btn btn-ghost">Explore capabilities</a>
         </div>
       </div>
       <div class="hero-art"><Motif /></div>
@@ -51,75 +31,54 @@ const method = [
         <li><strong>60+ years</strong><span>combined industry experience</span></li>
         <li><strong>End to end</strong><span>strategy, procurement, build and support</span></li>
         <li><strong>Vendor neutral</strong><span>the right platform, not the one we resell</span></li>
-        <li><strong>Global brands</strong><span>trusted by enterprise consumer businesses</span></li>
+        <li><strong>North America</strong><span>serving organisations across the region</span></li>
       </ul>
     </div>
   </section>
 
-  <section class="section flag-sec" id="flagships">
+  <section class="section white">
     <div class="wrap">
       <div class="section-head reveal">
-        <div><span class="eyebrow">Flagship practices</span><h2>Two things we do exceptionally well.</h2></div>
-        <p class="muted">Most of our work starts here: keeping critical systems safe while they move, and launching commerce that performs on day one.</p>
+        <div><span class="eyebrow">What we do</span><h2>Six capabilities. One accountable partner.</h2></div>
+        <p class="muted">Each practice works on its own or as part of a wider programme, so strategy, delivery and support never fall between vendors.</p>
       </div>
-      <div class="flags">
-        {flagships.map((f) => (
-          <a href={`/capabilities/${f.id}/`} class={`flag flag-${f.tone} reveal`}>
-            <div class="flag-top"><span class="flag-n">{f.n}</span><span class="flag-art"><CapabilityArt id={f.id} /></span></div>
-            <h3>{f.title}</h3>
-            <p class="flag-line">{f.line}</p>
-            <ul>{f.points.map((p) => <li>{p}</li>)}</ul>
-            <span class="flag-go">Explore the practice <span>→</span></span>
+      <div class="grid g3 caps">
+        {caps.map((c, i) => (
+          <a class="cap reveal" href={`/capabilities/${c.id}/`}>
+            <div class="cap-art"><CapabilityArt id={c.id} /></div>
+            <span class="cn">{String(i + 1).padStart(2, '0')}</span>
+            <h3>{c.data.title}</h3>
+            <p>{c.data.summary}</p>
+            <span class="link-arrow">Explore <span>→</span></span>
           </a>
         ))}
       </div>
-    </div>
-  </section>
-
-  <section class="section method-sec">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <div><span class="eyebrow">Relocation method</span><h2>How we move a data center without stopping the business.</h2></div>
-        <a class="link-arrow" href="/insights/dr-room-relocation-checklist/">Read the DR room checklist →</a>
-      </div>
-      <ol class="method reveal">
-        {method.map(([t, d], i) => <li><span class="mn">{String(i + 1).padStart(2, '0')}</span><b>{t}</b><p>{d}</p></li>)}
-      </ol>
     </div>
   </section>
 
   <Marquee />
 
-  <section class="section">
+  <section class="section dark">
     <div class="wrap">
       <div class="section-head reveal">
-        <div><span class="eyebrow">All capabilities</span><h2>The full stack, from rack to storefront.</h2></div>
-        <a class="link-arrow" href="/capabilities/">Explore capabilities →</a>
+        <div><span class="eyebrow">How we deliver</span><h2>A predictable path from plan to production.</h2></div>
+        <p class="muted">The same six-step model runs every engagement, whatever its size, so you always know what happens next.</p>
       </div>
-      <div class="rows">
-        {caps.map((c, i) => (
-          <a class="crow reveal" href={`/capabilities/${c.id}/`}>
-            <span class="cn">{String(i + 1).padStart(2, '0')}</span>
-            <span class="ct">{c.data.title}</span>
-            <span class="cd">{c.data.eyebrow}</span>
-            <span class="ca" aria-hidden="true">→</span>
-          </a>
-        ))}
-      </div>
+      <Process />
     </div>
   </section>
 
-  <section class="section dark why">
+  <section class="section">
     <div class="wrap">
       <div class="section-head reveal">
         <div><span class="eyebrow">Why Quintas</span><h2>Senior people. No hand-offs.</h2></div>
-        <p class="muted">The architects who design your programme are the ones who deliver it, and we stay to run what we build.</p>
+        <p class="muted">The architects who design your programme are the ones who deliver it, and we stay to support what we build.</p>
       </div>
       <div class="grid g4">
-        <div class="wcard reveal"><h3>Enterprise first</h3><p>Planned, governed and documented to the standard mission-critical systems need.</p></div>
+        <div class="wcard reveal"><h3>Enterprise first</h3><p>Planned, governed and documented to the standard business-critical systems need.</p></div>
         <div class="wcard reveal"><h3>Vendor neutral</h3><p>Recommendations follow your requirements, across leading platforms and OEMs.</p></div>
         <div class="wcard reveal"><h3>End-to-end delivery</h3><p>Strategy, procurement, engineering, migration and support from one team.</p></div>
-        <div class="wcard reveal"><h3>Proven, not promised</h3><p>Recovery tests, cutover sign-offs and launch metrics you can show your board.</p></div>
+        <div class="wcard reveal"><h3>Clear accountability</h3><p>Defined milestones, sign-offs and reporting you can share with leadership.</p></div>
       </div>
     </div>
   </section>
@@ -127,10 +86,10 @@ const method = [
   <section class="section white">
     <div class="wrap">
       <div class="section-head reveal">
-        <div><span class="eyebrow">Industries</span><h2>Built for regulated, always-on businesses.</h2></div>
+        <div><span class="eyebrow">Industries</span><h2>Experience across the sectors we serve.</h2></div>
         <a class="link-arrow" href="/industries/">All industries →</a>
       </div>
-      <div class="grid g3">
+      <div class="grid g4">
         {inds.map((i) => (
           <a class="card ind reveal" href={`/industries/${i.id}/`}>
             <span class="bar" aria-hidden="true"></span>
@@ -173,51 +132,21 @@ const method = [
   .facts span { color: var(--muted); font-size: .95rem; }
   @media (max-width: 960px) { .facts { grid-template-columns: 1fr 1fr; } }
 
-  .flag-sec { background: var(--white); }
-  .flags { display: flex; gap: 20px; }
-  .flag { flex: 1; display: flex; flex-direction: column; padding: clamp(28px, 3.5vw, 48px); border-radius: 22px; text-decoration: none; color: #fff; min-height: 520px; transition: flex-grow .5s cubic-bezier(.2,.7,.2,1), transform .3s; position: relative; overflow: hidden; }
-  .flag-navy { background: var(--ink); }
-  .flag-blue { background: var(--accent); }
-  .flag::after { content: ''; position: absolute; right: -80px; bottom: -80px; width: 260px; height: 260px; background: rgba(255,255,255,.06); transform: skewX(-45deg); }
-  @media (min-width: 961px) { .flag:hover { flex-grow: 1.25; } }
-  .flag-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 48px; }
-  .flag-n { font-family: var(--display); font-size: .95rem; letter-spacing: .1em; opacity: .7; }
-  .flag-art { width: 180px; opacity: .9; }
-  .flag-blue .flag-art { filter: saturate(.3) brightness(1.4); }
-  .flag h3 { font-family: var(--display); font-stretch: 112%; font-size: clamp(1.7rem, 2.6vw, 2.4rem); max-width: 16ch; }
-  .flag-line { color: rgba(255,255,255,.78); font-size: 1.08rem; max-width: 40ch; }
-  .flag ul { list-style: none; padding: 0; margin: 12px 0 32px; display: grid; gap: 10px; }
-  .flag li { padding-left: 22px; position: relative; color: rgba(255,255,255,.92); }
-  .flag li::before { content: ''; position: absolute; left: 0; top: .6em; width: 10px; height: 3px; background: #6fa3ff; transform: skewX(-45deg); }
-  .flag-blue li::before { background: #fff; }
-  .flag-go { margin-top: auto; font-weight: 600; display: inline-flex; gap: 8px; }
-  .flag-go span { transition: transform .2s; }
-  .flag:hover .flag-go span { transform: translateX(5px); }
-  @media (max-width: 960px) { .flags { flex-direction: column; } .flag { min-height: 0; } }
+  .caps { gap: 20px; }
+  .cap { display: flex; flex-direction: column; padding: 28px; border-radius: 18px; background: var(--paper); text-decoration: none; transition: background .3s, color .3s, transform .3s; min-height: 420px; }
+  .cap-art { background: var(--ink); border-radius: 12px; padding: 18px 22px; margin-bottom: 28px; transition: background .3s; }
+  .cap .cn { font-family: var(--display); font-size: .85rem; color: var(--accent); margin-bottom: 8px; }
+  .cap h3 { font-family: var(--display); font-stretch: 112%; font-size: 1.45rem; }
+  .cap p { color: var(--muted); }
+  .cap .link-arrow { margin-top: auto; }
+  .cap:hover { background: var(--ink); color: #fff; transform: translateY(-4px); }
+  .cap:hover .cap-art { background: #062950; }
+  .cap:hover p { color: #9fb0cc; }
+  .cap:hover .cn, .cap:hover .link-arrow { color: #6fa3ff; }
+  @media (max-width: 640px) { .cap { min-height: 0; } }
 
-  .method-sec { background: var(--white); padding-top: 0; }
-  .method { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); counter-reset: m; border-top: 2px solid var(--ink); }
-  .method li { padding: 28px 24px 0 0; position: relative; }
-  .method li::before { content: ''; position: absolute; top: -8px; left: 0; width: 14px; height: 14px; background: var(--accent); transform: skewX(-45deg); }
-  .mn { font-family: var(--display); color: var(--accent); font-size: .9rem; display: block; margin-bottom: 8px; }
-  .method b { font-family: var(--display); font-stretch: 112%; font-size: 1.35rem; display: block; margin-bottom: 6px; }
-  .method p { color: var(--muted); margin: 0; font-size: .97rem; }
-  @media (max-width: 960px) { .method { grid-template-columns: 1fr 1fr; row-gap: 32px; } }
-  @media (max-width: 640px) { .method { grid-template-columns: 1fr; } }
-
-  .rows { border-top: 1px solid var(--line); }
-  .crow { display: grid; grid-template-columns: 64px 1.3fr 1fr 40px; gap: 24px; align-items: center; padding: 26px 20px; border-bottom: 1px solid var(--line); text-decoration: none; transition: background .25s, color .25s, padding .25s; border-radius: 12px; }
-  .cn { font-family: var(--display); color: var(--muted); }
-  .ct { font-family: var(--display); font-stretch: 112%; font-weight: 600; font-size: clamp(1.25rem, 2.2vw, 1.9rem); letter-spacing: -0.015em; }
-  .cd { color: var(--muted); }
-  .ca { font-size: 1.6rem; justify-self: end; transition: transform .25s; }
-  .crow:hover { background: var(--ink); color: #fff; }
-  .crow:hover .cn, .crow:hover .cd { color: #9fb0cc; }
-  .crow:hover .ca { transform: translateX(6px); color: #6fa3ff; }
-  @media (max-width: 640px) { .crow { grid-template-columns: 40px 1fr; } .cd, .ca { display: none; } }
-
-  .why .wcard { border-top: 2px solid #6fa3ff; padding-top: 24px; }
-  .why .wcard p { color: #9fb0cc; }
+  .wcard { border-top: 2px solid var(--accent); padding-top: 24px; }
+  .wcard p { color: var(--muted); }
   .ind { min-height: 280px; position: relative; padding-top: 44px; }
   .ind .bar { position: absolute; top: 24px; left: 30px; width: 36px; height: 6px; background: var(--accent); transform: skewX(-45deg); }
 </style>

@@ -1,6 +1,6 @@
 ---
 title: Data & AI
-order: 5
+order: 4
 eyebrow: Data foundations that make AI useful
 headline: Turn enterprise data into decisions and AI that works.
 summary: We build the data platforms, governance and AI infrastructure that let enterprises use analytics and AI safely and at scale.
