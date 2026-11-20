@@ -5,7 +5,7 @@ export const site = {
   tagline: 'Engineering enterprise technology for what’s next.',
   email: 'info@quintastechnology.com',
   phone: '', // TODO add phone number
-  address: ['1603 Capitol Avenue, Suite 413', 'Cheyenne, WY 82001, USA'],
+  address: ['421 Fayetteville Street, Suite 1100', 'Raleigh, NC 27601, USA'],
   linkedin: 'https://www.linkedin.com/', // TODO company page URL
   formEndpoint: '', // TODO e.g. Formspree or HubSpot endpoint
 };
