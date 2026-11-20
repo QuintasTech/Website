@@ -1,15 +1,19 @@
 ---
-const { light = false } = Astro.props;
+// Quintas logo lockup, cut from the official logo file (brand-source/quintas-logo-original.png).
+// variant: 'white' for dark backgrounds, 'color' for light ones.
+const { variant = 'white', stacked = false } = Astro.props;
 ---
-<span class="logo" aria-label="Quintas Technology Partners">
-  <svg width="30" height="30" viewBox="0 0 32 32" aria-hidden="true">
-    <circle cx="15" cy="15" r="11" fill="none" stroke="currentColor" stroke-width="3.2"/>
-    <path d="M19 19 L28 28" stroke="#2f6bff" stroke-width="3.6" stroke-linecap="round"/>
-  </svg>
-  <span class="word">Quintas<span class="sub">Technology Partners</span></span>
-</span>
+{stacked ? (
+  <img class="stacked" src={`/brand/full-${variant}.png`} alt="Quintas Technology Partners" width="417" height="240" />
+) : (
+  <span class="logo">
+    <img src={`/brand/mark-${variant}.png`} alt="" width="102" height="96" />
+    <img src={`/brand/wordmark-${variant}.png`} alt="Quintas Technology Partners" width="383" height="72" />
+  </span>
+)}
 <style>
-  .logo { display: inline-flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -0.02em; font-size: 1.25rem; line-height: 1; }
-  .word { display: flex; flex-direction: column; }
-  .sub { font-size: .58rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; opacity: .65; margin-top: 4px; }
+  .logo { display: inline-flex; align-items: center; gap: 12px; }
+  .logo img:first-child { height: 44px; width: auto; }
+  .logo img:last-child { height: 32px; width: auto; }
+  .stacked { height: 96px; width: auto; }
 </style>
