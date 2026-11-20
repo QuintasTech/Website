@@ -1,6 +1,6 @@
 ---
 title: Managed Operations
-order: 5
+order: 6
 eyebrow: Ongoing support for critical systems
 headline: Keep critical technology running, and improving.
 summary: We operate and support infrastructure, cloud and commerce platforms after go-live, so your team can focus on what's next.

@@ -1,0 +1,53 @@
+---
+// Abstract illustration per capability, used on cards and page heroes.
+const { id } = Astro.props;
+---
+<svg class="cap-art" viewBox="0 0 320 200" aria-hidden="true">
+  <defs>
+    <linearGradient id={`g-${id}`} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4d8cff"/><stop offset="1" stop-color="#0057d9"/></linearGradient>
+  </defs>
+  {id === 'disaster-recovery' && (
+    <g>
+      <rect x="30" y="50" width="90" height="110" rx="10" fill="#0a2f5e" stroke="#2a5ea8"/>
+      <rect x="200" y="50" width="90" height="110" rx="10" fill="#0a2f5e" stroke="#2a5ea8"/>
+      {[0,1,2,3].map((i) => <><rect x="44" y={64 + i * 24} width="62" height="14" rx="3" fill="#123f7a"/><circle cx="52" cy={71 + i * 24} r="2.5" fill="#3ddc97"/><rect x="214" y={64 + i * 24} width="62" height="14" rx="3" fill="#123f7a"/><circle cx="222" cy={71 + i * 24} r="2.5" fill="#3ddc97"/></>)}
+      <path d="M124 90 C 160 60, 160 60, 196 90" stroke={`url(#g-${id})`} stroke-width="3" fill="none" stroke-dasharray="6 6"><animate attributeName="stroke-dashoffset" from="24" to="0" dur="1s" repeatCount="indefinite"/></path>
+      <path d="M196 120 C 160 150, 160 150, 124 120" stroke="#3ddc97" stroke-width="2" fill="none" stroke-dasharray="5 6" opacity=".7"/>
+    </g>
+  )}
+  {id === 'commerce' && (
+    <g>
+      <rect x="40" y="30" width="240" height="150" rx="12" fill="#0a2f5e" stroke="#2a5ea8"/>
+      <rect x="56" y="46" width="208" height="40" rx="8" fill={`url(#g-${id})`}/>
+      {[0,1,2].map((i) => <><rect x={56 + i * 72} y="96" width="64" height="54" rx="8" fill="#123f7a"/><circle cx={88 + i * 72} cy="123" r="13" fill={['#ff7a59','#4d8cff','#2bb673'][i]}/><rect x={56 + i * 72} y="158" width="40" height="6" rx="3" fill="#2a5ea8"/></>)}
+      <circle cx="262" cy="40" r="16" fill="#2bb673"/><path d="M255 40 l5 5 l9 -10" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+    </g>
+  )}
+  {id === 'cloud' && (
+    <g>
+      <path d="M90 120 a34 34 0 0 1 10 -66 a46 46 0 0 1 88 -6 a36 36 0 0 1 42 72 z" fill="#0a2f5e" stroke="#2a5ea8" stroke-width="2"/>
+      {[0,1,2].map((i) => <rect x={110 + i * 40} y="80" width="30" height="30" rx="6" fill={i === 1 ? `url(#g-${id})` : '#123f7a'}/>)}
+      {[0,1,2,3].map((i) => <><path d={`M${85 + i * 50} 130 V 160`} stroke="#2a5ea8" stroke-width="2" stroke-dasharray="3 4"/><rect x={70 + i * 50} y="160" width="30" height="18" rx="4" fill="#123f7a" stroke="#2a5ea8"/></>)}
+    </g>
+  )}
+  {id === 'infrastructure' && (
+    <g>
+      {[0,1,2,3].map((r) => <g><rect x={50 + r * 58} y="30" width="46" height="150" rx="6" fill="#0a2f5e" stroke="#2a5ea8"/>{[0,1,2,3,4,5].map((l) => <><rect x={56 + r * 58} y={40 + l * 23} width="34" height="15" rx="3" fill="#123f7a"/><circle cx={62 + r * 58} cy={47.5 + l * 23} r="2.2" fill={(r + l) % 3 ? '#3ddc97' : '#4d8cff'}/></>)}</g>)}
+    </g>
+  )}
+  {id === 'data-ai' && (
+    <g>
+      {[[70,60],[70,140],[160,40],[160,100],[160,160],[250,70],[250,130]].map(([x, y]) => <circle cx={x} cy={y} r="12" fill="#0a2f5e" stroke="#4d8cff" stroke-width="2"/>)}
+      {[[70,60,160,40],[70,60,160,100],[70,140,160,100],[70,140,160,160],[160,40,250,70],[160,100,250,70],[160,100,250,130],[160,160,250,130]].map(([a,b,c2,d]) => <line x1={a + 12} y1={b} x2={c2 - 12} y2={d} stroke="#2a5ea8" stroke-width="1.5"/>)}
+      <circle cx="160" cy="100" r="12" fill={`url(#g-${id})`}/>
+    </g>
+  )}
+  {id === 'managed-operations' && (
+    <g>
+      <rect x="40" y="36" width="240" height="128" rx="12" fill="#0a2f5e" stroke="#2a5ea8"/>
+      <polyline points="56,130 90,110 120,118 150,84 180,96 210,70 240,78 264,60" fill="none" stroke={`url(#g-${id})`} stroke-width="3" stroke-linejoin="round"/>
+      {[0,1,2].map((i) => <><circle cx={66 + i * 70} cy="52" r="4" fill="#3ddc97"/><rect x={76 + i * 70} y="48" width="40" height="8" rx="4" fill="#123f7a"/></>)}
+    </g>
+  )}
+</svg>
+<style>.cap-art { width: 100%; height: auto; display: block; }</style>
