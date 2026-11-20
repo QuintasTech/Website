@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://quintastechnology.com/sitemap-index.xml
