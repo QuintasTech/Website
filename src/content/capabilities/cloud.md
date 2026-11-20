@@ -1,6 +1,6 @@
 ---
 title: Cloud & Digital Transformation
-order: 3
+order: 1
 eyebrow: Modernise applications and move to the cloud
 headline: Accelerating business through digital transformation.
 summary: We help enterprises move from legacy environments to secure, well-governed cloud and modern workplace platforms, without disrupting operations.

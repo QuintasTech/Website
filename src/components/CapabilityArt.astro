@@ -42,6 +42,14 @@ const { id } = Astro.props;
       <circle cx="160" cy="100" r="12" fill={`url(#g-${id})`}/>
     </g>
   )}
+  {id === 'security' && (
+    <g>
+      <path d="M160 26 L226 50 V104 C226 142 198 168 160 180 C122 168 94 142 94 104 V50 Z" fill="#0a2f5e" stroke="#2a5ea8" stroke-width="2"/>
+      <path d="M160 44 L210 62 V104 C210 132 190 152 160 162 Z" fill={`url(#g-${id})`} opacity=".9"/>
+      <rect x="140" y="92" width="40" height="34" rx="6" fill="#123f7a" stroke="#6fa3ff" stroke-width="2"/>
+      <path d="M148 92 V82 a12 12 0 0 1 24 0 V92" fill="none" stroke="#6fa3ff" stroke-width="3"/>
+    </g>
+  )}
   {id === 'managed-operations' && (
     <g>
       <rect x="40" y="36" width="240" height="128" rx="12" fill="#0a2f5e" stroke="#2a5ea8"/>

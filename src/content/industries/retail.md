@@ -1,8 +1,8 @@
 ---
-title: Retail & Consumer Goods
+title: Retail & Consumer
 order: 1
 headline: Technology for brands that sell everywhere.
-summary: Commerce, data and infrastructure for global consumer brands and retailers selling across markets and channels.
+summary: Commerce, data and infrastructure for retailers and consumer businesses selling across channels.
 challenges:
   - title: Global, multi-market commerce
     text: Consistent brand experiences across regions, languages, currencies and regulations.
