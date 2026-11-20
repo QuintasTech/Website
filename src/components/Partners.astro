@@ -1,12 +1,12 @@
 ---
-// TODO replace with official partner logo files once confirmed.
-const partners = ['Microsoft', 'Cisco', 'Dell Technologies', 'HPE', 'Nutanix', 'AWS', 'VMware', 'Shopify Plus'];
+import PartnerLogo from './PartnerLogo.astro';
+import { partners } from '../data/partners';
 ---
-<ul class="partners" aria-label="Technology partners and platforms">
-  {partners.map((p) => <li>{p}</li>)}
+<ul class="partners" aria-label="Technology partners">
+  {partners.map((p) => <li><PartnerLogo p={p} /></li>)}
 </ul>
 <style>
   .partners { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
-  li { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 36px 20px; text-align: center; font-weight: 700; font-size: 1.25rem; letter-spacing: -0.02em; color: #3b4253; background: var(--white); }
-  @media (max-width: 640px) { .partners { grid-template-columns: 1fr 1fr; } li { font-size: 1rem; padding: 26px 12px; } }
+  li { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); height: 128px; display: grid; place-items: center; background: var(--white); padding: 0 16px; }
+  @media (max-width: 640px) { .partners { grid-template-columns: 1fr 1fr; } li { height: 104px; } }
 </style>
