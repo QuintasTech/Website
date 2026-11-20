@@ -5,10 +5,13 @@ ErrorDocument 404 /404.html
 
 RewriteEngine On
 
-# Force HTTPS and the bare domain
-RewriteCond %{HTTPS} off [OR]
-RewriteCond %{HTTP_HOST} ^www\. [NC]
-RewriteRule ^(.*)$ https://quintastechnology.com/$1 [R=301,L]
+# Force HTTPS (keeps the current host, so staging stays on staging)
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# www to the bare domain
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
 
 # Old WordPress pages to their new homes
 RewriteRule ^about-us/?$ /about/ [R=301,L]

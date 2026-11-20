@@ -6,6 +6,7 @@ import { site } from '../site';
 const { title, description = 'Quintas Technology Partners helps enterprises modernise infrastructure, move to the cloud, build commerce platforms and put data and AI to work.' } = Astro.props;
 const fullTitle = title ? `${title} | ${site.name}` : `${site.name} | Enterprise technology, commerce and cloud`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const isStaging = import.meta.env.PUBLIC_SITE_ENV === 'staging';
 ---
 <!doctype html>
 <html lang="en">
@@ -15,6 +16,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {isStaging && <meta name="robots" content="noindex, nofollow" />}
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
