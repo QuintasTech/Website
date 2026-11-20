@@ -3,5 +3,14 @@
   "framework": "astro",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "trailingSlash": true
+  "trailingSlash": true,
+  "redirects": [
+    { "source": "/about-us/", "destination": "/about/", "permanent": true },
+    { "source": "/data-center-infrastructure/", "destination": "/capabilities/infrastructure/", "permanent": true },
+    { "source": "/digital-transformation/", "destination": "/capabilities/cloud/", "permanent": true },
+    { "source": "/manufacturing/", "destination": "/industries/manufacturing/", "permanent": true },
+    { "source": "/government/", "destination": "/industries/government/", "permanent": true },
+    { "source": "/wp-admin/:path*", "destination": "/", "permanent": false },
+    { "source": "/wp-login.php", "destination": "/", "permanent": false }
+  ]
 }
