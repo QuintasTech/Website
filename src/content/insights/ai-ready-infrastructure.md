@@ -1,5 +1,7 @@
 ---
 title: Is your infrastructure ready for AI?
+seoTitle: "AI-Ready Infrastructure: A Readiness Checklist | Quintas"
+seoDescription: "The compute, storage, network and governance questions enterprises and manufacturers should answer before AI pilots move into production."
 summary: The compute, storage, network, facilities and data questions to answer before your AI pilots reach production.
 date: 2026-10-14
 author: Quintas Infrastructure Practice

@@ -3,10 +3,72 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { site } from '../site';
-const { title, description = 'Quintas Technology Partners helps enterprises modernise infrastructure, move to the cloud, build commerce platforms and put data and AI to work.' } = Astro.props;
-const fullTitle = title ? `${title} | ${site.name}` : `${site.name} | Enterprise technology, commerce and cloud`;
+interface Props {
+  title?: string;
+  seoTitle?: string; // full <title>, used as-is
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+  schema?: Record<string, unknown>[];
+}
+const {
+  title,
+  seoTitle,
+  description = 'Raleigh, NC enterprise technology partner for cloud, data center infrastructure, cybersecurity, data and AI, commerce and managed services, serving enterprises across the US.',
+  image = '/og-image.png',
+  type = 'website',
+  noindex = false,
+  schema = [],
+} = Astro.props;
+// Long page titles get the short brand suffix so search results don't truncate them.
+const brandSuffix = title && title.length + site.name.length + 3 > 60 ? site.short : site.name;
+const fullTitle = seoTitle ?? (title ? `${title} | ${brandSuffix}` : `Enterprise IT Solutions Provider in Raleigh, NC | ${site.short}`);
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const imageUrl = new URL(image, Astro.site);
 const isStaging = import.meta.env.PUBLIC_SITE_ENV === 'staging';
+const origin = Astro.site!.origin;
+const orgId = `${origin}/#organization`;
+const graph = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': ['Organization', 'ProfessionalService'],
+      '@id': orgId,
+      name: site.name,
+      alternateName: site.short,
+      url: `${origin}/`,
+      logo: `${origin}/brand/full-color.png`,
+      image: `${origin}/og-image.png`,
+      email: site.email,
+      ...(site.phone ? { telephone: site.phone } : {}),
+      description: 'Enterprise technology partner for cloud, data center infrastructure, cybersecurity, data and AI, digital commerce and managed operations.',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: site.street,
+        addressLocality: site.city,
+        addressRegion: site.region,
+        postalCode: site.postalCode,
+        addressCountry: 'US',
+      },
+      areaServed: [
+        { '@type': 'State', name: 'North Carolina' },
+        { '@type': 'Country', name: 'United States' },
+      ],
+      knowsAbout: site.services,
+      ...(site.sameAs.length ? { sameAs: site.sameAs } : {}),
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${origin}/#website`,
+      url: `${origin}/`,
+      name: site.name,
+      publisher: { '@id': orgId },
+    },
+    ...schema,
+  ],
+};
+---
 ---
 <!doctype html>
 <html lang="en">
@@ -16,10 +78,19 @@ const isStaging = import.meta.env.PUBLIC_SITE_ENV === 'staging';
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    {isStaging && <meta name="robots" content="noindex, nofollow" />}
+    {(isStaging || noindex) && <meta name="robots" content="noindex, nofollow" />}
+    <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={imageUrl} />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+    <script type="application/ld+json" set:html={JSON.stringify(graph)} />
     <link rel="icon" href="/favicon.png" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />

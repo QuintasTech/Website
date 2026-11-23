@@ -1,5 +1,7 @@
 ---
 title: Government & Public Sector
+seoTitle: "Government & Public Sector IT Services | Quintas"
+seoDescription: "Secure, cost-effective infrastructure, cloud and cybersecurity services for government agencies and public sector organizations modernizing public services."
 order: 3
 headline: Technology solutions for the public sector.
 summary: Secure, cost-effective infrastructure and cloud services for agencies modernising public services.

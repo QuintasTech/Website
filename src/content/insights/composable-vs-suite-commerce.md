@@ -1,5 +1,7 @@
 ---
 title: Composable or suite? Choosing an enterprise commerce platform
+seoTitle: "Composable vs Suite Commerce: Choosing a Platform | Quintas"
+seoDescription: "How to choose between a composable commerce stack and an all-in-one suite when you sell B2B and B2C across many markets, channels and currencies."
 summary: How to decide between a composable stack and an all-in-one suite when you sell across many markets, brands and channels.
 date: 2026-11-10
 author: Quintas Commerce Practice

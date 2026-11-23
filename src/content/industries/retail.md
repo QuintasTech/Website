@@ -1,5 +1,7 @@
 ---
 title: Retail & Consumer
+seoTitle: "Retail & Consumer Goods (CPG) Technology Services | Quintas"
+seoDescription: "Ecommerce, data and infrastructure for retailers and consumer packaged goods companies selling across channels, markets and distributors, in North Carolina and the US."
 order: 1
 headline: Technology for brands that sell everywhere.
 summary: Commerce, data and infrastructure for retailers and consumer businesses selling across channels.

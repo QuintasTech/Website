@@ -5,6 +5,8 @@ const capabilities = defineCollection({
   loader: glob({ pattern: '*.md', base: './src/content/capabilities' }),
   schema: z.object({
     title: z.string(),
+    seoTitle: z.string().optional(),
+    seoDescription: z.string().optional(),
     order: z.number(),
     eyebrow: z.string(),
     headline: z.string(),
@@ -19,6 +21,8 @@ const industries = defineCollection({
   loader: glob({ pattern: '*.md', base: './src/content/industries' }),
   schema: z.object({
     title: z.string(),
+    seoTitle: z.string().optional(),
+    seoDescription: z.string().optional(),
     order: z.number(),
     headline: z.string(),
     summary: z.string(),
@@ -31,6 +35,8 @@ const insights = defineCollection({
   loader: glob({ pattern: '*.md', base: './src/content/insights' }),
   schema: z.object({
     title: z.string(),
+    seoTitle: z.string().optional(),
+    seoDescription: z.string().optional(),
     summary: z.string(),
     date: z.coerce.date(),
     author: z.string(),

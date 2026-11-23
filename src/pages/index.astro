@@ -12,7 +12,7 @@ const inds = (await getCollection('industries')).sort((a, b) => a.data.order - b
 const posts = (await getCollection('insights')).sort((a, b) => +b.data.date - +a.data.date).slice(0, 3);
 const capTitle = Object.fromEntries(caps.map((c) => [c.id, c.data.title]));
 ---
-<Base>
+<Base seoTitle="Enterprise IT Solutions Provider in Raleigh, NC | Quintas" description="Raleigh, NC enterprise IT partner for cloud, data center infrastructure, cybersecurity, data & AI and managed services. Serving manufacturers and enterprises across the US.">
   <section class="hero">
     <div class="wrap hero-grid2">
       <div class="hero-copy">
@@ -31,7 +31,7 @@ const capTitle = Object.fromEntries(caps.map((c) => [c.id, c.data.title]));
         <li><strong>60+ years</strong><span>combined industry experience</span></li>
         <li><strong>End to end</strong><span>strategy, procurement, build and support</span></li>
         <li><strong>Vendor neutral</strong><span>the right platform, not the one we resell</span></li>
-        <li><strong>North America</strong><span>serving organisations across the region</span></li>
+        <li><strong>Raleigh, NC</strong><span>serving enterprises across the US</span></li>
       </ul>
     </div>
   </section>
