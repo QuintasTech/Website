@@ -33,10 +33,18 @@ jobs:
         env:
           TARGET: ${{ github.ref_name == 'main' && 'hostinger' || 'hostinger-staging' }}
         run: |
-          cd dist
-          git init -q -b "$TARGET"
+          # Commit on top of the existing deploy branch (no force-push) so Hostinger's
+          # "git pull" on the server always fast-forwards.
+          REPO="https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git"
+          if git clone -q --depth 1 --branch "$TARGET" "$REPO" deploy 2>/dev/null; then :; else
+            git init -q -b "$TARGET" deploy
+          fi
+          find deploy -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp -a dist/. deploy/
+          cd deploy
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
           git add -A
+          git diff --cached --quiet && { echo "No changes"; exit 0; }
           git commit -qm "Build ${GITHUB_SHA::7} from ${GITHUB_REF_NAME}"
-          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" "$TARGET"
+          git push "$REPO" "HEAD:$TARGET"
